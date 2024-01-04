@@ -69,7 +69,7 @@ public class BanqueResource {
     }
 
 
- @PutMapping("/{id}")
+ /*@PutMapping("/{id}")
     public ResponseEntity<Banque> deleted(@PathVariable Long id) {
         logger.info("+++++++++++++ delete banque en cours dans la resource ++++++++++++");
         if (id != null) {
@@ -81,5 +81,5 @@ public class BanqueResource {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
-
+*/
 }

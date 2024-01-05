@@ -33,28 +33,31 @@ public class BanqueService {
     }
 
 
-        public Banque deleted(Long banqueId) {
-            Banque banque = banqueRepository.findById(banqueId).orElse(null);
-            if (banque != null) {
-                logger.info("========== Deleted Banque  Service traiter ===============" + banqueId);
-                banque.setDeleted(true);
-                return banqueRepository.save(banque);
-            }
-            return null;
-        }
+    public Banque update(Long id, Banque banqueDetails) {
 
-    public Banque updateBanque(Banque banque) {
-        logger.info("Modification de la banque en cours dans le service");
-        Optional<Banque> optionalBanque = banqueRepository.findById(banque.getId());
-        if (optionalBanque.isPresent()) {
-            Banque existingBanque = optionalBanque.get();
-            banque = banqueRepository.save(existingBanque);
-            logger.info("Banque modifiée avec succès: " + banque);
-            return banque;
-        } else {
-            throw new IllegalArgumentException("Banque not found with ID: " + banque.getId());
-        }
+        Banque existingBanque = banqueRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La banque avec l'ID fourni n'existe pas."));
+        // Mettez à jour les propriétés de la banque existante avec les détails de la nouvelle banque
+        existingBanque.setCode(banqueDetails.getCode()); // par exemple, si 'nom' est un champ de l'entité Banque
+        existingBanque.setLibelle(banqueDetails.getLibelle()); // et ainsi de suite pour les autres propriétés...
+
+        // Enregistrez la banque mise à jour dans la base de données
+        return banqueRepository.save(existingBanque);
     }
+
+   public Banque delete(Long id, Banque banqueDetails) {
+
+        Banque existingBanque = banqueRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La banque avec l'ID fourni n'existe pas."));
+        // Mettez à jour les propriétés de la banque existante avec les détails de la nouvelle banque
+        existingBanque.setCode(banqueDetails.getCode()); // par exemple, si 'nom' est un champ de l'entité Banque
+        existingBanque.setLibelle(banqueDetails.getLibelle()); // et ainsi de suite pour les autres propriétés...
+        existingBanque.setDeleted(true); // et ainsi de suite pour les autres propriétés...
+        // Enregistrez la banque mise à jour dans la base de données
+        return banqueRepository.save(existingBanque);
+    }
+
+
 
 
 }

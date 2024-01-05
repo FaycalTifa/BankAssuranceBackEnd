@@ -44,42 +44,33 @@ public class BanqueResource {
     public ResponseEntity<List<Banque>> findAll() {
         List<Banque> banqueList = banqueService.findAll();
         logger.info("+++++++++++++ list banque en cours dans le service ++++++++++++");
-        /*if (banqueList != null) {
-
-            logger.info("========== list Banque Resource réussi [Code: {}] ===============", HttpStatus.CREATED.value());
-            return ResponseEntity.status(HttpStatus.CREATED).body(banqueList);
-        } else {
-            logger.warn("Requête invalide : banque est null [Code: {}]", HttpStatus.BAD_REQUEST.value());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }*/
          return ResponseEntity.ok(banqueList);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Banque> updatePoste(@PathVariable Long id) {
-        logger.info("+++++++++++++ upadate banque en cours dans la resource ++++++++++++");
-        if (id != null) {
-            Banque update = banqueService.deleted(id);
-            logger.info("========== update Banque Resource réussi [Code: {}] ===============", HttpStatus.CREATED.value());
-            return ResponseEntity.status(HttpStatus.CREATED).body(update);
-        } else {
-            logger.warn("Requête invalide : banque est null [Code: {}]", HttpStatus.BAD_REQUEST.value());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
+    public ResponseEntity<Banque> updateBanque(@PathVariable Long id, @RequestBody Banque banqueDetails) {
+        logger.info("+++++++++++++ UPDATE BANQUE RESSOURCE++++++++++++");
+        System.out.println("=========== RESSOURCE +===============");
+        System.out.println(id);
+        System.out.println( banqueDetails.getCode());
+        System.out.println( banqueDetails.getLibelle());
+        System.out.println("=========== RESSOURCE +===============");
+        Banque updatedBanque = banqueService.update(id, banqueDetails);
+        return new ResponseEntity<>(updatedBanque, HttpStatus.OK);
+    }
+
+ @PutMapping("/deleteBanque/{id}")
+    public ResponseEntity<Banque> delete(@PathVariable Long id, @RequestBody Banque banqueDetails) {
+        logger.info("+++++++++++++ DELETE BANQUE RESSOURCE++++++++++++");
+        System.out.println("=========== DELETE RESSOURCE +===============");
+        System.out.println(id);
+        System.out.println( banqueDetails.getCode());
+        System.out.println( banqueDetails.getLibelle());
+        System.out.println("=========== DELETE RESSOURCE +===============");
+        Banque updatedBanque = banqueService.delete(id, banqueDetails);
+        return new ResponseEntity<>(updatedBanque, HttpStatus.OK);
     }
 
 
- /*@PutMapping("/{id}")
-    public ResponseEntity<Banque> deleted(@PathVariable Long id) {
-        logger.info("+++++++++++++ delete banque en cours dans la resource ++++++++++++");
-        if (id != null) {
-            Banque update = banqueService.deleted(id);
-            logger.info("========== delete Banque Resource réussi [Code: {}] ===============", HttpStatus.CREATED.value());
-            return ResponseEntity.status(HttpStatus.CREATED).body(update);
-        } else {
-            logger.warn("Requête invalide : banque est null [Code: {}]", HttpStatus.BAD_REQUEST.value());
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
-        }
-    }
-*/
+
 }

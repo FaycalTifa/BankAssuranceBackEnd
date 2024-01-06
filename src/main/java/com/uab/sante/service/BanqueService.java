@@ -1,18 +1,18 @@
 package com.uab.sante.service;
 
 import com.uab.sante.entities.Banque;
+import com.uab.sante.entities.PeriodiciteRemboursement;
 import com.uab.sante.repository.BanqueRepository;
+import com.uab.sante.repository.PeriodiciteRemboursementRepository;
+import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.slf4j.Logger;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 public class BanqueService {
-
     @Autowired
     private BanqueRepository banqueRepository;
     @Autowired
@@ -22,39 +22,39 @@ public class BanqueService {
     public Banque save(Banque banque){
         logger.info("ajout banque en cours dans le service");
         banque = banqueRepository.save(banque);
-        logger.info("========== save Banque  Service ===============" + banque);
+        logger.info("========== save banque  Service ===============" + banque);
         return banque;
     }
 
     public List<Banque> findAll(){
         List<Banque> banques = banqueRepository.findAllByIsDeletedFalse();
-        logger.info("========== List Banque  Service traiter ===============" + banques);
+        logger.info("========== List banque en cours dans le service traiter ===============\" + banque");
         return banques;
     }
 
 
     public Banque update(Long id, Banque banqueDetails) {
 
-        Banque existingBanque = banqueRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("La banque avec l'ID fourni n'existe pas."));
+        Banque exitingBanque = banqueRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La  banque avec l'ID fourni n'existe pas."));
         // Mettez à jour les propriétés de la banque existante avec les détails de la nouvelle banque
-        existingBanque.setCode(banqueDetails.getCode()); // par exemple, si 'nom' est un champ de l'entité Banque
-        existingBanque.setLibelle(banqueDetails.getLibelle()); // et ainsi de suite pour les autres propriétés...
+        exitingBanque.setCode(banqueDetails.getCode()); // par exemple, si 'nom' est un champ de l'entité Banque
+        exitingBanque.setLibelle(banqueDetails.getLibelle()); // et ainsi de suite pour les autres propriétés...
 
-        // Enregistrez la banque mise à jour dans la base de données
-        return banqueRepository.save(existingBanque);
+        // Enregistrez la periodiciteRemboursement mise à jour dans la base de données
+        return banqueRepository.save(exitingBanque);
     }
 
-   public Banque delete(Long id, Banque banqueDetails) {
+    public Banque delete(Long id, Banque banqueDetails) {
 
-        Banque existingBanque = banqueRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("La banque avec l'ID fourni n'existe pas."));
+        Banque exixtingBanque = banqueRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("La ba,que avec l'ID fourni n'existe pas."));
         // Mettez à jour les propriétés de la banque existante avec les détails de la nouvelle banque
-        existingBanque.setCode(banqueDetails.getCode()); // par exemple, si 'nom' est un champ de l'entité Banque
-        existingBanque.setLibelle(banqueDetails.getLibelle()); // et ainsi de suite pour les autres propriétés...
-        existingBanque.setDeleted(true); // et ainsi de suite pour les autres propriétés...
-        // Enregistrez la banque mise à jour dans la base de données
-        return banqueRepository.save(existingBanque);
+        exixtingBanque.setCode(banqueDetails.getCode()); // par exemple, si 'nom' est un champ de l'entité Banque
+        exixtingBanque.setLibelle(banqueDetails.getLibelle()); // et ainsi de suite pour les autres propriétés...
+        exixtingBanque.setDeleted(true); // et ainsi de suite pour les autres propriétés...
+        // Enregistrez la periodiciteRemboursement mise à jour dans la base de données
+        return banqueRepository.save(exixtingBanque);
     }
 
 

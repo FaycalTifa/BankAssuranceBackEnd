@@ -40,6 +40,10 @@ public class BanqueResource {
         }
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping
     public ResponseEntity<List<Banque>> findAll() {
         List<Banque> banqueList = banqueService.findAll();
@@ -47,6 +51,12 @@ public class BanqueResource {
          return ResponseEntity.ok(banqueList);
     }
 
+    /**
+     *
+     * @param id
+     * @param banqueDetails
+     * @return
+     */
     @PutMapping("/{id}")
     public ResponseEntity<Banque> updateBanque(@PathVariable Long id, @RequestBody Banque banqueDetails) {
         logger.info("+++++++++++++ UPDATE BANQUE RESSOURCE++++++++++++");
@@ -59,6 +69,12 @@ public class BanqueResource {
         return new ResponseEntity<>(updatedBanque, HttpStatus.OK);
     }
 
+    /**
+     *
+     * @param id
+     * @param banqueDetails
+     * @return
+     */
  @PutMapping("/deleteBanque/{id}")
     public ResponseEntity<Banque> delete(@PathVariable Long id, @RequestBody Banque banqueDetails) {
         logger.info("+++++++++++++ DELETE BANQUE RESSOURCE++++++++++++");
@@ -70,6 +86,8 @@ public class BanqueResource {
         Banque updatedBanque = banqueService.delete(id, banqueDetails);
         return new ResponseEntity<>(updatedBanque, HttpStatus.OK);
     }
+
+
 
 
 

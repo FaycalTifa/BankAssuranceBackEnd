@@ -21,6 +21,7 @@ public class BanqueService {
 
     public Banque save(Banque banque){
         logger.info("ajout banque en cours dans le service");
+
         banque = banqueRepository.save(banque);
         logger.info("========== save banque  Service ===============" + banque);
         return banque;

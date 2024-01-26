@@ -23,42 +23,28 @@ public class AgenceService {
     private static final Logger logger = LoggerFactory.getLogger(AgenceService.class);
 
 
+    public Agence saveAg(Agence agence){
+        logger.info("ajout banque en cours dans le service");
+
+        agence = agenceRepository.save(agence);
+        logger.info("========== save banque  Service ===============" + agence);
+        return agence;
+    }
+
     public Agence save(Agence agence){
-        try {
-            logger.info("ajout agence en cours dans le service");
-            // Ajoutez une vérification pour s'assurer que la Banque associée à l'Agence est correctement initialisée
-            if (agence.getBanque() == null) {
-                logger.error("Erreur lors de la sauvegarde de l'agence : Banque non initialisée.");
-                throw new IllegalArgumentException("Banque non initialisée");
-            }
-            // Assurez-vous que la Banque associée existe en base de données
-            Banque existingBanque = banqueRepository.findById(agence.getBanque().getId())
-                    .orElseThrow(() -> new EntityNotFoundException("Banque introuvable"));
-            // Mettez à jour la référence à la Banque associée avec l'instance persistante
-            agence.setBanque(existingBanque);
-            // Sauvegarde de l'Agence
-            agence = agenceRepository.save(agence);
-            logger.info("========== save agence  Service ===============" + agence);
-            System.out.println("=====================saveAgence========================");
-            System.out.println(agence);
-            System.out.println("=====================saveAgence========================");
-
-            return agence;
-        } catch (Exception e) {
-            // Loguez toute exception survenue pendant la sauvegarde
-            logger.error("Erreur lors de la sauvegarde de l'agence", e);
-            throw e;
-        }
-        }
-
+        logger.info("ajout Agence en cours dans le service");
+        agence = agenceRepository.save(agence);
+        logger.info("========== save Agence  Service ===============" + agence);
+        return agence;
+    }
 
     public List<Agence> findAll(){
-        List<Agence> banques = agenceRepository.findAllByIsDeletedFalse();
+        List<Agence> agences = agenceRepository.findAll();
         logger.info("========== List agence en cours dans le service traiter ===============\" + banque");
-        System.out.println("=====================agenceList========================");
-        System.out.println(banques);
-        System.out.println("=====================agenceList========================");
-        return banques;
+        System.out.println("=====================    agenceList   ========================");
+        System.out.println(agences);
+        System.out.println("=====================    agenceList   ========================");
+        return agences;
     }
 
 

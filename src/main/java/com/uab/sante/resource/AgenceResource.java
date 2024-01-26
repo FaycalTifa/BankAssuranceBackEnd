@@ -30,17 +30,9 @@ public class AgenceResource {
      */
     @PostMapping
     public ResponseEntity<Agence> createProduct(@RequestBody Agence agence) {
-        logger.info("+++++++++++++ ajout Ressource en cours dans le service ++++++++++++");
-        logger.info("========== save agence  Ressource ===============" + agence);
-        System.out.println("=====================saveAgence Ressource========================");
-        System.out.println(agence);
-        System.out.println("=====================saveAgence Ressource========================");
+        logger.info("+++++++++++++ ajout banque en cours dans le service ++++++++++++");
         if (agence != null) {
-           // agence.getBanque().setId(this.);
             agence = agenceService.save(agence);
-            System.out.println("11111111111111111 saveAgence Ressource========================");
-            System.out.println(agence);
-            System.out.println("11111111111111111 saveAgence Ressource========================");
             logger.info("========== save Banque Resource réussi [Code: {}] ===============", HttpStatus.CREATED.value());
             return ResponseEntity.status(HttpStatus.CREATED).body(agence);
         } else {
@@ -48,6 +40,7 @@ public class AgenceResource {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).build();
         }
     }
+
 
     /**
      *

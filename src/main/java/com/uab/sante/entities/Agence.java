@@ -1,11 +1,15 @@
 package com.uab.sante.entities;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
 @Table(name = "Agence")
+@AllArgsConstructor
+@NoArgsConstructor
 @Data
 public class Agence {
 
@@ -18,7 +22,7 @@ public class Agence {
     private boolean isDeleted = false;
 
     // Relation Many-to-One avec Banque
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "banqueId")
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "banque_id")
     private Banque banque;
 }

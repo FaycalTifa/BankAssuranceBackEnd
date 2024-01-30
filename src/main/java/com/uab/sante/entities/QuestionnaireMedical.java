@@ -18,18 +18,23 @@ public class QuestionnaireMedical implements Serializable {
     private Boolean question3;
     @Column(name = "Question4")
     private Boolean question4;
+    @Column(name = "Question5")
+    private Boolean question5;
     @Column(name = "Details")
     private String details;
 
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
-    public QuestionnaireMedical(Boolean question1, Boolean question2, Boolean question3, Boolean question4, String details, boolean isDeleted){
+    public QuestionnaireMedical(Boolean question1, Boolean question2, Boolean question3, Boolean question4,Boolean question5, String details, boolean isDeleted){
 
         this.question1 = question1;
         this.question2 = question2;
         this.question3 = question3;
         this.question4 = question4;
+        this.question5 = question5;
+
+        this.details = details;
         this.isDeleted = isDeleted;
     }
 
@@ -51,6 +56,10 @@ public class QuestionnaireMedical implements Serializable {
 
     public Boolean getQuestion4() {
         return question4;
+    }
+
+    public Boolean getQuestion5() {
+        return question5;
     }
 
     public String getDetails() {
@@ -81,6 +90,10 @@ public class QuestionnaireMedical implements Serializable {
         this.question4 = question4;
     }
 
+    public void setQuestion5(Boolean question5) {
+        this.question5 = question5;
+    }
+
     public void setDetails(String details) {
         this.details = details;
     }
@@ -100,13 +113,14 @@ public class QuestionnaireMedical implements Serializable {
                 Objects.equals(question2, questionnaireMedical.question2) &&
                 Objects.equals(question3, questionnaireMedical.question3) &&
                 Objects.equals(question4, questionnaireMedical.question4) &&
+                Objects.equals(question5, questionnaireMedical.question5) &&
                 Objects.equals(details, questionnaireMedical.details);
 
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, question1, question2, question3, question4, details, isDeleted);
+        return Objects.hash(id, question1, question2, question3, question4, question5, details, isDeleted);
     }
     public QuestionnaireMedical() {super();}
 

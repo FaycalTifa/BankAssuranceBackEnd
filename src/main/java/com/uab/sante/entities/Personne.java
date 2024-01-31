@@ -33,7 +33,7 @@ public class Personne implements Serializable {
     @Column(name = "Employeur")
     private String employeur;
     @Column(name = "Numero_piece_passeport")
-    private Number numeroPiecePasseport;
+    private int numeroPiecePasseport;
 
     @Column(name = "Date_etablissement")
     private Date dateEtablissement;
@@ -42,11 +42,11 @@ public class Personne implements Serializable {
     @Column(name = "Adresse_postale")
     private String adressePostale;
     @Column(name = "Telephone")
-    private Number telephone;
+    private int telephone;
     @Column(name = "Email")
     private String email;
     @Column(name = "Telephone_secours")
-    private Number telephoneSecours;
+    private int telephoneSecours;
     @Column(name = "Email_secours")
     private String emailSecours;
     @Column(name = "Adresse_secours")
@@ -71,13 +71,13 @@ public class Personne implements Serializable {
         this.tension = tension;
         this.professionActuelle = professionActuelle;
         this.employeur = employeur;
-        this.numeroPiecePasseport = numeroPiecePasseport;
+        this.numeroPiecePasseport = (int) numeroPiecePasseport;
         this.dateEtablissement = dateEtablissement;
         this.lieuEtablissement = lieuEtablissement;
         this.adressePostale = adressePostale;
-        this.telephone = telephone;
+        this.telephone = (int) telephone;
         this.email = email;
-        this.telephoneSecours = telephoneSecours;
+        this.telephoneSecours = (int) telephoneSecours;
         this.emailSecours = emailSecours;
         this.adresseSecours = adresseSecours;
         this.isDeleted = isDeleted;
@@ -212,7 +212,7 @@ public class Personne implements Serializable {
     }
 
     public void setNumeroPiecePasseport(Number numeroPiecePasseport) {
-        this.numeroPiecePasseport = numeroPiecePasseport;
+        this.numeroPiecePasseport = (int) numeroPiecePasseport;
     }
 
     public void setDateEtablissement(Date dateEtablissement) {
@@ -228,7 +228,7 @@ public class Personne implements Serializable {
     }
 
     public void setTelephone(Number telephone) {
-        this.telephone = telephone;
+        this.telephone = (int) telephone;
     }
 
     public void setEmail(String email) {
@@ -236,7 +236,7 @@ public class Personne implements Serializable {
     }
 
     public void setTelephoneSecours(Number telephoneSecours) {
-        this.telephoneSecours = telephoneSecours;
+        this.telephoneSecours = (int) telephoneSecours;
     }
 
     public void setEmailSecours(String emailSecours) {

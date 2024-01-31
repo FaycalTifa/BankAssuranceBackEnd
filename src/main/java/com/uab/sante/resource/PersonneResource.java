@@ -16,6 +16,7 @@ import java.util.List;
 @RestController
 @RequestMapping("api/personne")
 public class PersonneResource {
+
     @Autowired
     private PersonneService personneService;
     private static final Logger logger = LoggerFactory.getLogger(PersonneResource.class);
@@ -27,8 +28,11 @@ public class PersonneResource {
      * @return
      */
     @PostMapping
-    public ResponseEntity<Personne> createProduct(@RequestBody Personne personne) {
-        logger.info("+++++++++++++ ajout personne en cours dans le service ++++++++++++");
+      public ResponseEntity<Personne> createProduct(@RequestBody Personne personne) {
+      logger.info("+++++++++++++ ajout personne en cours dans le service ++++++++++++", personne);
+      System.out.println("éééééééééééééééééééééééééééééééééééééééééééééé");
+      System.out.println(personne);
+      System.out.println("éééééééééééééééééééééééééééééééééééééééééééééé");
         if (personne != null) {
             personne = personneService.save(personne);
             logger.info("========== save Personne Resource réussi [Code: {}] ===============", HttpStatus.CREATED.value());

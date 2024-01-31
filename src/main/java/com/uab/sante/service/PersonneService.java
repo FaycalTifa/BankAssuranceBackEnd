@@ -20,7 +20,6 @@ public class PersonneService {
 
     public Personne save(Personne personne){
         logger.info("ajout personne en cours dans le service");
-
         personne = personneRepository.save(personne);
         logger.info("========== save personne  Service ===============" + personne);
         return personne;

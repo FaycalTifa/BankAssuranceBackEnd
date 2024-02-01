@@ -1,12 +1,13 @@
 package com.uab.sante.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.math.BigDecimal;
-import java.util.Date;
 import java.util.Objects;
 
 @Entity
+@Data
 @Table(name = "DatailsCredit")
 public class DetailsCredit implements Serializable {
 
@@ -14,40 +15,39 @@ public class DetailsCredit implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
     @Column(name = "Montant_credit_assurer")
-    private BigDecimal montantCreditAssurer;
+    private Double montantCreditAssurer;
     @Column(name = "Montant_credit_decouvert")
-    private BigDecimal montantCreditDecouvert;
+    private Double montantCreditDecouvert;
     @Column(name = "Nombre_de_remboursement")
-    private Integer nombreDeRemboursement;
+    private int nombreDeRemboursement;
     @Column(name = "Montant_des_termes")
-    private BigDecimal montantDesTermes;
+    private Double montantDesTermes;
     @Column(name = "Numero_compte_client")
-    private Integer numeroCompteClient;
+    private int numeroCompteClient;
     @Column(name = "Duree_totale_credit")
-    private Integer dureeTotaleCredit;
+    private int dureeTotaleCredit;
     @Column(name = "Differer_amortissement")
-    private Integer differerAmortissement;
+    private int differerAmortissement;
     @Column(name = "Date_premier_remboursement_terme")
-    private Date datePremierRemboursementTerme;
+    private String datePremierRemboursementTerme;
     @Column(name = "Date_effet")
-    private Date dateEffet;
+    private String dateEffet;
     @Column(name = "Date_echeance")
-    private Date dateEcheance;
-
+    private String dateEcheance;
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
-    public DetailsCredit(BigDecimal montantCreditAssurer, BigDecimal montantCreditDecouvert, Integer nombreDeRemboursement, BigDecimal montantDesTermes,
-                         Integer numeroCompteClient, Integer dureeTotaleCredit, Integer differerAmortissement, Date datePremierRemboursementTerme, Date dateEffet,
-                         Date dateEcheance, boolean isDeleted) {
+    public DetailsCredit(Double montantCreditAssurer, Double montantCreditDecouvert, int nombreDeRemboursement, Double montantDesTermes,
+                         int numeroCompteClient, int dureeTotaleCredit, int differerAmortissement, String  datePremierRemboursementTerme, String dateEffet,
+                         String dateEcheance, boolean isDeleted) {
 
         this.montantCreditAssurer = montantCreditAssurer;
         this.montantCreditDecouvert = montantCreditDecouvert;
-        this.nombreDeRemboursement = nombreDeRemboursement;
+        this.nombreDeRemboursement = (int) nombreDeRemboursement;
         this.montantDesTermes = montantDesTermes;
-        this.numeroCompteClient = numeroCompteClient;
-        this.dureeTotaleCredit = dureeTotaleCredit;
-        this.differerAmortissement = differerAmortissement;
+        this.numeroCompteClient = (int) numeroCompteClient;
+        this.dureeTotaleCredit = (int) dureeTotaleCredit;
+        this.differerAmortissement = (int) differerAmortissement;
         this.datePremierRemboursementTerme = datePremierRemboursementTerme;
         this.dateEffet = dateEffet;
         this.dateEcheance = dateEcheance;
@@ -58,48 +58,110 @@ public class DetailsCredit implements Serializable {
         return id;
     }
 
-    public BigDecimal getMontantCreditAssurer() {
+    public Double getMontantCreditAssurer() {
         return montantCreditAssurer;
     }
 
-    public BigDecimal getMontantCreditDecouvert() {
+    public Double getMontantCreditDecouvert() {
         return montantCreditDecouvert;
     }
 
-    public Integer getNombreDeRemboursement() {
+    public int getNombreDeRemboursement() {
         return nombreDeRemboursement;
     }
 
-    public BigDecimal getMontantDesTermes() {
+    public Double getMontantDesTermes() {
         return montantDesTermes;
     }
 
-    public Integer getNumeroCompteClient() {
+    public Number getNumeroCompteClient() {
         return numeroCompteClient;
     }
 
-    public Integer getDureeTotaleCredit() {
+    public Number getDureeTotaleCredit() {
         return dureeTotaleCredit;
     }
 
-    public Integer getDiffererAmortissement() {
+    public Number getDiffererAmortissement() {
         return differerAmortissement;
     }
 
-    public Date getDatePremierRemboursementTerme() {
+    public String getDatePremierRemboursementTerme() {
         return datePremierRemboursementTerme;
     }
 
-    public Date getDateEffet() {
+    public String getDateEffet() {
         return dateEffet;
     }
 
-    public Date getDateEcheance() {
+    public String getDateEcheance() {
         return dateEcheance;
     }
 
     public boolean isDeleted() {
         return isDeleted;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setMontantCreditAssurer(Double montantCreditAssurer) {
+        this.montantCreditAssurer = montantCreditAssurer;
+    }
+
+    public void setMontantCreditDecouvert(Double montantCreditDecouvert) {
+        this.montantCreditDecouvert = montantCreditDecouvert;
+    }
+
+
+
+    public void setMontantDesTermes(Double montantDesTermes) {
+        this.montantDesTermes = montantDesTermes;
+    }
+
+    public void setNumeroCompteClient(Number numeroCompteClient) {
+        this.numeroCompteClient = (int) numeroCompteClient;
+    }
+
+    public void setDureeTotaleCredit(Number dureeTotaleCredit) {
+        this.dureeTotaleCredit = (int) dureeTotaleCredit;
+    }
+
+    public void setDiffererAmortissement(Number differerAmortissement) {
+        this.differerAmortissement = (int) differerAmortissement;
+    }
+
+    public void setDatePremierRemboursementTerme(String datePremierRemboursementTerme) {
+        this.datePremierRemboursementTerme = datePremierRemboursementTerme;
+    }
+
+    public void setNombreDeRemboursement(int nombreDeRemboursement) {
+        this.nombreDeRemboursement = nombreDeRemboursement;
+    }
+
+    public void setNumeroCompteClient(int numeroCompteClient) {
+        this.numeroCompteClient = numeroCompteClient;
+    }
+
+    public void setDureeTotaleCredit(int dureeTotaleCredit) {
+        this.dureeTotaleCredit = dureeTotaleCredit;
+    }
+
+    public void setDiffererAmortissement(int differerAmortissement) {
+        this.differerAmortissement = differerAmortissement;
+    }
+
+    public void setDateEffet(String dateEffet) {
+        this.dateEffet = dateEffet;
+    }
+
+    public void setDateEcheance(String dateEcheance) {
+        this.dateEcheance = dateEcheance;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
     }
 
     @Override
@@ -127,7 +189,7 @@ public class DetailsCredit implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(id, montantCreditAssurer, montantCreditDecouvert, nombreDeRemboursement, montantDesTermes, numeroCompteClient, dureeTotaleCredit, differerAmortissement,
-                datePremierRemboursementTerme, dateEffet, dateEcheance);
+                datePremierRemboursementTerme, dateEffet, dateEcheance, isDeleted);
 
     }
     public DetailsCredit() {super();}

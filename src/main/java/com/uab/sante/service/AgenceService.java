@@ -39,7 +39,7 @@ public class AgenceService {
     }
 
     public List<Agence> findAll(){
-        List<Agence> agences = agenceRepository.findAll();
+        List<Agence> agences = agenceRepository.findAllByIsDeletedFalse();
         logger.info("========== List agence en cours dans le service traiter ===============\" + banque");
         System.out.println("=====================    agenceList   ========================");
         System.out.println(agences);
@@ -65,6 +65,7 @@ public class AgenceService {
         Agence exixtingAgence = agenceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("La agence avec l'ID fourni n'existe pas."));
         // Mettez à jour les propriétés de agence existante avec les détails de la nouvelle agence
+
         exixtingAgence.setLibelle(agence.getLibelle()); // par exemple, si 'nom' est un champ de l'entité Banque
         exixtingAgence.setBanque(agence.getBanque()); // et ainsi de suite pour les autres propriétés...
         exixtingAgence.setDeleted(true); // et ainsi de suite pour les autres propriétés...

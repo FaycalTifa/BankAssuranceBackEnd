@@ -11,6 +11,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 
 @RestController
@@ -49,6 +50,21 @@ public class BanqueResource {
         List<Banque> banqueList = banqueService.findAll();
         logger.info("+++++++++++++ list banque en cours dans le service ++++++++++++");
          return ResponseEntity.ok(banqueList);
+    }
+
+    /**
+     *
+     * @param id
+     * @return
+     */
+    @GetMapping("/{id}")
+    public ResponseEntity<Banque> findById(@PathVariable Long id) {
+        Optional<Banque> banque = banqueService.findById(id);
+        System.out.println("=========== findById RESSOURCE +===============");
+        System.out.println(banque);
+        System.out.println("=========== findById RESSOURCE +===============");
+        return banque.map(value -> ResponseEntity.ok().body(value))
+                .orElseGet(() -> ResponseEntity.status(HttpStatus.NOT_FOUND).build());
     }
 
     /**

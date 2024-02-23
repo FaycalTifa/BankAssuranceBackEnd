@@ -64,7 +64,7 @@ public class QuestionnaireMedicalResource {
         System.out.println( questionnaireMedicalDetails.getQuestion3());
         System.out.println( questionnaireMedicalDetails.getQuestion4());
         System.out.println( questionnaireMedicalDetails.getQuestion5());
-        System.out.println( questionnaireMedicalDetails.getDetails());
+        //System.out.println( questionnaireMedicalDetails.getDetail());
         System.out.println("=========== RESSOURCE +===============");
         QuestionnaireMedical updatedQuestionnaireMedical = questionnaireMedicalService.update(id, questionnaireMedicalDetails);
         return new ResponseEntity<>(updatedQuestionnaireMedical, HttpStatus.OK);
@@ -86,7 +86,7 @@ public class QuestionnaireMedicalResource {
         System.out.println( questionnaireMedicalDetails.getQuestion3());
         System.out.println( questionnaireMedicalDetails.getQuestion4());
         System.out.println( questionnaireMedicalDetails.getQuestion5());
-        System.out.println( questionnaireMedicalDetails.getDetails());
+     //   System.out.println( questionnaireMedicalDetails.getDetails());
 
         System.out.println("=========== DELETE RESSOURCE +===============");
         QuestionnaireMedical updatedQuestionnaireMedical = questionnaireMedicalService.delete(id, questionnaireMedicalDetails);

@@ -42,7 +42,7 @@ public class QuestionnaireMedicalService {
         exitingQuestionnaireMedical.setQuestion3(questionnaireMedicalDetails.getQuestion3());
         exitingQuestionnaireMedical.setQuestion4(questionnaireMedicalDetails.getQuestion4());
         exitingQuestionnaireMedical.setQuestion4(questionnaireMedicalDetails.getQuestion5());
-        exitingQuestionnaireMedical.setDetails(questionnaireMedicalDetails.getDetails());
+      //  exitingQuestionnaireMedical.setDetails(questionnaireMedicalDetails.getDetails());
         // Enregistrez le questionnaireMedical mise à jour dans la base de données
         return questionnaireMedicalRepository.save(exitingQuestionnaireMedical);
     }
@@ -57,7 +57,7 @@ public class QuestionnaireMedicalService {
         exixtingQuestionnaireMedical.setQuestion3(questionnaireMedicalDetails.getQuestion3());
         exixtingQuestionnaireMedical.setQuestion4(questionnaireMedicalDetails.getQuestion4());
         exixtingQuestionnaireMedical.setQuestion4(questionnaireMedicalDetails.getQuestion5());
-        exixtingQuestionnaireMedical.setDetails(questionnaireMedicalDetails.getDetails());
+      //  exixtingQuestionnaireMedical.setDetails(questionnaireMedicalDetails.getDetails());
         exixtingQuestionnaireMedical.setDeleted(true); // et ainsi de suite pour les autres propriétés...
         // Enregistrez la periodiciteRemboursement mise à jour dans la base de données
         return questionnaireMedicalRepository.save(exixtingQuestionnaireMedical);

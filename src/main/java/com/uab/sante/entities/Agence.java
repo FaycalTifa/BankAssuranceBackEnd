@@ -21,6 +21,19 @@ public class Agence {
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
+    public Agence( String libelle, boolean isDeleted) {
+        this.libelle = libelle;
+        this.isDeleted = isDeleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        isDeleted = deleted;
+    }
+
+    public boolean isDeleted() {
+        return isDeleted;
+    }
+
     // Relation Many-to-One avec Banque
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "banque_id")

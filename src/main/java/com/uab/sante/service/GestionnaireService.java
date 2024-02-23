@@ -38,7 +38,7 @@ public class GestionnaireService {
     }
 
     public List<Gestionnaire> findAll(){
-        List<Gestionnaire> gestionnaires = gestionnaireRepository.findAll();
+        List<Gestionnaire> gestionnaires = gestionnaireRepository.findAllByIsDeletedFalse();
         logger.info("========== List gestionnaire en cours dans le service traiter ===============\" + agence");
         System.out.println("=====================    gestionnaireList   ========================");
         System.out.println(gestionnaires);
@@ -64,8 +64,8 @@ public class GestionnaireService {
         Gestionnaire exixtingGestionnaire = gestionnaireRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("La gestionnaire avec l'ID fourni n'existe pas."));
         // Mettez à jour les propriétés de la banque existante avec les détails de la nouvelle banque
-        exixtingGestionnaire.setLibelle(exixtingGestionnaire.getLibelle()); // par exemple, si 'nom' est un champ de l'entité Banque
-        exixtingGestionnaire.setAgence(exixtingGestionnaire.getAgence()); // et ainsi de suite pour les autres propriétés...
+        exixtingGestionnaire.setLibelle(gestionnaire.getLibelle()); // par exemple, si 'nom' est un champ de l'entité Banque
+        exixtingGestionnaire.setAgence(gestionnaire.getAgence()); // et ainsi de suite pour les autres propriétés...
         exixtingGestionnaire.setDeleted(true); // et ainsi de suite pour les autres propriétés...
         // Enregistrez la periodiciteRemboursement mise à jour dans la base de données
         return gestionnaireRepository.save(exixtingGestionnaire);

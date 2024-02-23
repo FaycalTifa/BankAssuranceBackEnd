@@ -19,7 +19,7 @@ public class Personne implements Serializable {
     @Column(name = "Nom_de_jeune_fille")
     private String nomDeJeuneFille;
     @Column(name = "Date_de_naissance")
-    private Date dateDeNaissance;
+    private String dateDeNaissance;
     @Column(name = "Lieu_de_naissance")
     private String lieuDeNaissance;
     @Column(name = "Taille")
@@ -35,8 +35,9 @@ public class Personne implements Serializable {
     @Column(name = "Numero_piece_passeport")
     private int numeroPiecePasseport;
 
+
     @Column(name = "Date_etablissement")
-    private Date dateEtablissement;
+    private String dateEtablissement;
     @Column(name = "Lieu_etablissement")
     private String lieuEtablissement;
     @Column(name = "Adresse_postale")
@@ -58,9 +59,9 @@ public class Personne implements Serializable {
 
 
 
-    public Personne(String nom, String prenom, String nomDeJeuneFille, Date dateDeNaissance, String lieuDeNaissance, Double taille, Double poids, Double tension, String professionActuelle,
-                    String employeur, Number numeroPiecePasseport, Date dateEtablissement, String lieuEtablissement, String adressePostale, Number telephone, String email,
-                    Number telephoneSecours, String emailSecours, String adresseSecours, boolean isDeleted){
+    public Personne(String nom, String prenom, String nomDeJeuneFille, String dateDeNaissance, String lieuDeNaissance, Double taille, Double poids, Double tension, String professionActuelle,
+                    String employeur, int numeroPiecePasseport, String dateEtablissement, String lieuEtablissement, String adressePostale, int telephone, String email,
+                    int telephoneSecours, String emailSecours, String adresseSecours, boolean isDeleted){
         this.nom = nom;
         this.prenom = prenom;
         this.nomDeJeuneFille = nomDeJeuneFille;
@@ -99,7 +100,7 @@ public class Personne implements Serializable {
         return nomDeJeuneFille;
     }
 
-    public Date getDateDeNaissance() {
+    public String getDateDeNaissance() {
         return dateDeNaissance;
     }
 
@@ -131,7 +132,7 @@ public class Personne implements Serializable {
         return numeroPiecePasseport;
     }
 
-    public Date getDateEtablissement() {
+    public String getDateEtablissement() {
         return dateEtablissement;
     }
 
@@ -183,7 +184,7 @@ public class Personne implements Serializable {
         this.nomDeJeuneFille = nomDeJeuneFille;
     }
 
-    public void setDateDeNaissance(Date dateDeNaissance) {
+    public void setDateDeNaissance(String dateDeNaissance) {
         this.dateDeNaissance = dateDeNaissance;
     }
 
@@ -211,11 +212,13 @@ public class Personne implements Serializable {
         this.employeur = employeur;
     }
 
+
     public void setNumeroPiecePasseport(Number numeroPiecePasseport) {
         this.numeroPiecePasseport = (int) numeroPiecePasseport;
+
     }
 
-    public void setDateEtablissement(Date dateEtablissement) {
+    public void setDateEtablissement(String dateEtablissement) {
         this.dateEtablissement = dateEtablissement;
     }
 

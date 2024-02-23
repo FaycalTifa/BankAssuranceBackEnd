@@ -64,7 +64,8 @@ public class AgenceService {
 
         Agence exixtingAgence = agenceRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("La agence avec l'ID fourni n'existe pas."));
-        // Mettez à jour les propriétés de la banque existante avec les détails de la nouvelle banque
+        // Mettez à jour les propriétés de agence existante avec les détails de la nouvelle agence
+
         exixtingAgence.setLibelle(agence.getLibelle()); // par exemple, si 'nom' est un champ de l'entité Banque
         exixtingAgence.setBanque(agence.getBanque()); // et ainsi de suite pour les autres propriétés...
         exixtingAgence.setDeleted(true); // et ainsi de suite pour les autres propriétés...

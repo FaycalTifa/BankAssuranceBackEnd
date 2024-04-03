@@ -1,14 +1,16 @@
 package com.uab.sante.resource;
 
+import com.uab.sante.entities.Agence;
 import com.uab.sante.entities.Souscription;
 import com.uab.sante.service.SouscriptionService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("api/souscription")
@@ -16,12 +18,14 @@ public class SouscriptionResource {
 
     @Autowired
     private  SouscriptionService souscriptionService;
+    @Autowired
+    private static final Logger logger = LoggerFactory.getLogger(SouscriptionResource.class);
 
 
     @PostMapping
     public ResponseEntity<Souscription> enregistrerSouscription(@RequestBody Souscription souscription) {
         System.out.println("================================== SOUSCRIPTION RESSOURCE =====================================");
-        System.out.println(souscription);
+        System.out.println(souscription.getDetailsCredit());
         System.out.println("=================================== SOUSCRIPTION RESSOURCE ====================================");
 
         try {
@@ -34,5 +38,15 @@ public class SouscriptionResource {
         } catch (Exception e) {
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Souscription>> findAll() {
+        List<Souscription> souscriptionList = souscriptionService.findAll();
+        logger.info("+++++++++++++ list Agence en cours dans le Ressource ++++++++++++");
+        System.out.println("===================== SouscriptionList Ressource ========================");
+        System.out.println(souscriptionList);
+        System.out.println("===================== SouscriptionList Ressource ========================");
+        return ResponseEntity.ok(souscriptionList);
     }
 }

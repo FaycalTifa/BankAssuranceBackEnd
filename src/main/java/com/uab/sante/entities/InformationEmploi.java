@@ -21,6 +21,9 @@ public class InformationEmploi implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "isDiffere")
+    private Boolean isDiffere = false;
+
     @Column(name = "Employeur")
     private String employeur;
 
@@ -43,10 +46,13 @@ public class InformationEmploi implements Serializable {
     private Long numeroCNSS;
 
     @Column(name = "Numero_RCCM_IFU")
-
     private Long numeroRCCMIFU;
+
     @Column(name = "isDeleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
+
+    @Column(name = "isPerte")
+    private Boolean isPerte = false;
 
 
 }

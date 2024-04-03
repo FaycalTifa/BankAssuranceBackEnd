@@ -18,6 +18,12 @@ public class Souscription implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Column(name = "isDeleted")
+    private boolean isDeleted = false;
+
+    @Column(name = "isPerte")
+    private boolean isPerte = false;
+
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "personne_id")
     private Personne personne;
@@ -37,4 +43,8 @@ public class Souscription implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "informationEmploi_id")
     private InformationEmploi informationEmploi;
+
+    private String userName;
+    private char[] password ;
+
 }

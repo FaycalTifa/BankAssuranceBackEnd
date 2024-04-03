@@ -49,7 +49,7 @@ public class QuestionnaireMedical implements Serializable {
     private String detail5;
 
     @Column(name = "isDeleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
 
 }

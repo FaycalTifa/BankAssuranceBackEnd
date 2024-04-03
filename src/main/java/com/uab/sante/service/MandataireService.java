@@ -9,7 +9,16 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
+import java.net.Authenticator;
+import java.net.PasswordAuthentication;
 import java.util.List;
+import java.util.Properties;
 
 @Service
 public class MandataireService {
@@ -58,7 +67,7 @@ public class MandataireService {
         exixtingMandataire.setPrimeGarantiePerteEmploi(mandataireDetails.getPrimeGarantiePerteEmploi()); // et ainsi de suite pour les autres propriétés...
         exixtingMandataire.setPrimeTotale(mandataireDetails.getPrimeTotale()); // par exemple, si 'montantCreditAssurer' est un champ de l'entité DetailsCredit
         exixtingMandataire.setNumeroDeCompteUABVie(mandataireDetails.getNumeroDeCompteUABVie()); // et ainsi de suite pour les autres propriétés...
-        exixtingMandataire.setDeleted(true); // et ainsi de suite pour les autres propriétés...
+        exixtingMandataire.setIsDeleted(true); // et ainsi de suite pour les autres propriétés...
 
         return mandataireRepository.save(exixtingMandataire);
     }

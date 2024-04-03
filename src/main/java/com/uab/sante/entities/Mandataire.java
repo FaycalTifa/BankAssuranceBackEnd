@@ -20,7 +20,7 @@ public class Mandataire implements Serializable {
     private Long id;
 
     @Column(name = "Capital_Assurer")
-    private Double capitalAssurer;
+    private Long capitalAssurer;
 
     @Column(name = "Prime_Garantie_Deces_ou_IAD")
     private Long primeGarantieDecesOuIAD;
@@ -31,11 +31,26 @@ public class Mandataire implements Serializable {
     @Column(name = "Prime_Totale")
     private Long primeTotale;
 
+@Column(name = "Prime_simple")
+    private Long primeSimple;
+
+@Column(name = "Prime_Differe")
+    private Long primeDiffere;
+
+@Column(name = "Prime_Decouvert")
+    private Long primeDecouvert;
+
+@Column(name = "tauxAmortissement")
+    private Double tauxAmortissement;
+
+@Column(name = "tauxDecouvert")
+    private Double tauxDecouvert;
+
     @Column(name = "Numero_De_Compte_UAB_Vie")
     private Long numeroDeCompteUABVie;
 
     @Column(name = "isDeleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
 
 }

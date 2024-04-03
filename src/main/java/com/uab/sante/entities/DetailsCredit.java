@@ -51,7 +51,13 @@ public class DetailsCredit implements Serializable {
     private LocalDate dateEcheance;
 
     @Column(name = "isDeleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
+
+    @Column(name = "isDiffere")
+    private Boolean isDiffere ;
+
+    @Column(name = "isDecouvert")
+    private Boolean isDecouvert ;
 
 
 }

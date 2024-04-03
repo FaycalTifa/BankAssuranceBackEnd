@@ -58,10 +58,11 @@ public class QuestionnaireMedicalService {
         exixtingQuestionnaireMedical.setQuestion4(questionnaireMedicalDetails.getQuestion4());
         exixtingQuestionnaireMedical.setQuestion4(questionnaireMedicalDetails.getQuestion5());
       //  exixtingQuestionnaireMedical.setDetails(questionnaireMedicalDetails.getDetails());
-        exixtingQuestionnaireMedical.setDeleted(true); // et ainsi de suite pour les autres propriétés...
+        exixtingQuestionnaireMedical.setIsDeleted(true); // et ainsi de suite pour les autres propriétés...
         // Enregistrez la periodiciteRemboursement mise à jour dans la base de données
         return questionnaireMedicalRepository.save(exixtingQuestionnaireMedical);
     }
+
 
 
 

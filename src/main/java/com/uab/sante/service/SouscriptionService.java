@@ -5,6 +5,7 @@ import com.uab.sante.repository.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Authenticator;
@@ -15,14 +16,15 @@ import javax.mail.Message;
 import javax.mail.MessagingException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.util.Arrays;
-import java.util.Properties;
+import javax.transaction.Transactional;
+import java.lang.reflect.Field;
+import java.util.*;
 
-import java.util.List;
 import java.util.Properties;
 
 
 @Service
+@Transactional
 public class SouscriptionService {
 
 
@@ -77,12 +79,60 @@ public class SouscriptionService {
 
     }
 
+    public Souscription updateSouscription(Long souscriptionId, Souscription nouvelleSouscription) {
+        Souscription souscription = souscriptionRepository.findById(souscriptionId)
+                .orElseThrow(() -> new RuntimeException("Souscription non trouvée avec l'ID : " + souscriptionId));
+
+        // Update Personne
+        updateEntityFields(souscription.getPersonne(), nouvelleSouscription.getPersonne(), personneRepository);
+
+        // Update DetailsCredit
+        updateEntityFields(souscription.getDetailsCredit(), nouvelleSouscription.getDetailsCredit(), detailsCreditRepository);
+
+        // Update QuestionnaireMedical
+        updateEntityFields(souscription.getQuestionnaireMedical(), nouvelleSouscription.getQuestionnaireMedical(), questionnaireMedicalRepository);
+
+        // Update Mandataire
+        updateEntityFields(souscription.getMandataire(), nouvelleSouscription.getMandataire(), mandataireRepository);
+
+        // Update InformationEmploi
+        updateEntityFields(souscription.getInformationEmploi(), nouvelleSouscription.getInformationEmploi(), informationEmploiRepository);
+
+        return souscriptionRepository.save(souscription);
+    }
+
+    private <T> void updateEntityFields(T existingEntity, T newEntity, JpaRepository<T, Long> repository) {
+        if (existingEntity != null && newEntity != null) {
+            Field[] fields = existingEntity.getClass().getDeclaredFields();
+            for (Field field : fields) {
+                try {
+                    field.setAccessible(true);
+                    Object value = field.get(newEntity);
+                    if (value != null) {
+                        field.set(existingEntity, value);
+                    }
+                } catch (IllegalAccessException e) {
+                    // Handle exception
+                }
+            }
+            repository.save(existingEntity);
+        }
+    }
     public Souscription getSouscriptionById(Long id) {
         return souscriptionRepository.findById(id).orElse(null);
     }
 
-        public List<Souscription> findAll(){
-        List<Souscription> souscriptions = souscriptionRepository.findAll();
+        public List<Souscription> findAllByIsSuperieurFalse(){
+        List<Souscription> souscriptions = souscriptionRepository.findAllByIsCuperieurIsFalse();
+        logger.info("========== List souscriptions en cours dans le service traiter ===============");
+        System.out.println("=====================    souscriptionsList service   ========================");
+        System.out.println(souscriptions);
+        System.out.println("=====================    souscriptionsList service   ========================");
+        return souscriptions;
+    }
+
+ public List<Souscription> findAllByIsSuperieurTrue(){
+        List<Souscription> souscriptions = souscriptionRepository.findAllByIsCuperieurIsTrue();
         logger.info("========== List souscriptions en cours dans le service traiter ===============");
         System.out.println("=====================    souscriptionsList service   ========================");
         System.out.println(souscriptions);
@@ -91,6 +141,7 @@ public class SouscriptionService {
     }
 
 
+/*
 
     public void sendEmail(String to, String subject, String body) throws MessagingException {
         // Configuration des propriétés pour la connexion SMTP
@@ -183,5 +234,6 @@ public class SouscriptionService {
     }
 
 
+*/
 
 }

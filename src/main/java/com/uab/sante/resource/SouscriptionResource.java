@@ -10,6 +10,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -40,9 +41,29 @@ public class SouscriptionResource {
         }
     }
 
-    @GetMapping
-    public ResponseEntity<List<Souscription>> findAll() {
-        List<Souscription> souscriptionList = souscriptionService.findAll();
+    @PutMapping("/{souscriptionId}")
+    public Souscription updateSouscription(@PathVariable Long souscriptionId, @RequestBody Souscription updatedSouscription)  {
+        System.out.println("===================== updateSouscription Ressource ========================");
+        System.out.println(souscriptionId);
+        System.out.println(updatedSouscription.getIsCuperieur());
+        System.out.println(updatedSouscription);
+        System.out.println("===================== updateSouscription Ressource ========================");
+        return souscriptionService.updateSouscription(updatedSouscription.getId(), updatedSouscription);
+    }
+
+    @GetMapping("/findAllByIsSuperieurFalse")
+    public ResponseEntity<List<Souscription>> findAllByIsSuperieurFalse() {
+        List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurFalse();
+        logger.info("+++++++++++++ list Agence en cours dans le Ressource ++++++++++++");
+        System.out.println("===================== SouscriptionList Ressource ========================");
+        System.out.println(souscriptionList);
+        System.out.println("===================== SouscriptionList Ressource ========================");
+        return ResponseEntity.ok(souscriptionList);
+    }
+
+    @GetMapping("/findAllByIsSuperieurTrue")
+    public ResponseEntity<List<Souscription>> findAllByIsSuperieurTrue() {
+        List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurTrue();
         logger.info("+++++++++++++ list Agence en cours dans le Ressource ++++++++++++");
         System.out.println("===================== SouscriptionList Ressource ========================");
         System.out.println(souscriptionList);

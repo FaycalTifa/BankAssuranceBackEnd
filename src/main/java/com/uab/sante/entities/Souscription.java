@@ -19,10 +19,10 @@ public class Souscription implements Serializable {
     private Long id;
 
     @Column(name = "isDeleted")
-    private boolean isDeleted = false;
+    private Boolean isDeleted = false;
 
-    @Column(name = "isPerte")
-    private boolean isPerte = false;
+    @Column(name = "isSuperieur")
+    private Boolean isCuperieur = false;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "personne_id")
@@ -44,7 +44,6 @@ public class Souscription implements Serializable {
     @JoinColumn(name = "informationEmploi_id")
     private InformationEmploi informationEmploi;
 
-    private String userName;
-    private char[] password ;
+
 
 }

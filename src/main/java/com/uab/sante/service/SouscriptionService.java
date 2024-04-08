@@ -98,6 +98,8 @@ public class SouscriptionService {
         // Update InformationEmploi
         updateEntityFields(souscription.getInformationEmploi(), nouvelleSouscription.getInformationEmploi(), informationEmploiRepository);
 
+        souscription.setIsCuperieur(nouvelleSouscription.getIsCuperieur());
+
         return souscriptionRepository.save(souscription);
     }
 

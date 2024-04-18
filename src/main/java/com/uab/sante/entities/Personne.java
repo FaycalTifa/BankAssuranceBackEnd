@@ -81,6 +81,8 @@ public class Personne implements Serializable {
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
-
+    @ManyToOne
+    @JoinColumn(name = "agenceId") // Assurez-vous de remplacer "periodicite_remboursement_id" par le nom réel de la colonne dans votre table DetailsCredit qui fait référence à la table PeriodiciteRemboursement.
+    private Civilite civilite;
 
 }

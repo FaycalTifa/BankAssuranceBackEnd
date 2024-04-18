@@ -31,19 +31,19 @@ public class Mandataire implements Serializable {
     @Column(name = "Prime_Totale")
     private Long primeTotale;
 
-@Column(name = "Prime_simple")
+    @Column(name = "Prime_simple")
     private Long primeSimple;
 
-@Column(name = "Prime_Differe")
+    @Column(name = "Prime_Differe")
     private Long primeDiffere;
 
-@Column(name = "Prime_Decouvert")
+    @Column(name = "Prime_Decouvert")
     private Long primeDecouvert;
 
-@Column(name = "tauxAmortissement")
+    @Column(name = "tauxAmortissement")
     private Double tauxAmortissement;
 
-@Column(name = "tauxDecouvert")
+    @Column(name = "tauxDecouvert")
     private Double tauxDecouvert;
 
     @Column(name = "Numero_De_Compte_UAB_Vie")

@@ -54,20 +54,14 @@ public class SouscriptionResource {
     @GetMapping("/findAllByIsSuperieurFalse")
     public ResponseEntity<List<Souscription>> findAllByIsSuperieurFalse() {
         List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurFalse();
-        logger.info("+++++++++++++ list Agence en cours dans le Ressource ++++++++++++");
-        System.out.println("===================== SouscriptionList Ressource ========================");
-        System.out.println(souscriptionList);
-        System.out.println("===================== SouscriptionList Ressource ========================");
+        logger.info("+++++++++++++ list Agence en cours dans le Ressource ++++++++++++" + souscriptionList);
         return ResponseEntity.ok(souscriptionList);
     }
 
     @GetMapping("/findAllByIsSuperieurTrue")
     public ResponseEntity<List<Souscription>> findAllByIsSuperieurTrue() {
         List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurTrue();
-        logger.info("+++++++++++++ list findAllByIsSuperieurTrue en cours dans le Ressource ++++++++++++");
-        System.out.println("===================== SouscriptionList Ressource 1111111111 ========================");
-        System.out.println(souscriptionList);
-        System.out.println("===================== SouscriptionList Ressource 1111111111 ========================");
-        return ResponseEntity.ok(souscriptionList);
+        logger.info("+++++++++++++ list findAllByIsSuperieurTrue en cours dans le Ressource ++++++++++++"+ souscriptionList);
+                return ResponseEntity.ok(souscriptionList);
     }
 }

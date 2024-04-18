@@ -57,19 +57,6 @@ public class DetailsCreditResource {
     @PutMapping("/{id}")
     public ResponseEntity<DetailsCredit> updateDetailsCredit(@PathVariable Long id, @RequestBody DetailsCredit detailsCreditDetails) {
         logger.info("+++++++++++++ UPDATE DETAILSCREDIT RESSOURCE++++++++++++");
-        System.out.println("=========== RESSOURCE +===============");
-        System.out.println(id);
-        System.out.println( detailsCreditDetails.getMontantCreditAssurer());
-        System.out.println( detailsCreditDetails.getMontantCreditDecouvert());
-        System.out.println(detailsCreditDetails.getNombreDeRemboursement());
-        System.out.println(detailsCreditDetails.getMontantDesTermes());
-        System.out.println(detailsCreditDetails.getNumeroCompteClient());
-        System.out.println(detailsCreditDetails.getDureeTotaleCredit());
-        System.out.println(detailsCreditDetails.getDiffererAmortissement());
-        System.out.println(detailsCreditDetails.getDatePremierRemboursementTerme());
-        System.out.println(detailsCreditDetails.getDateEffet());
-        System.out.println(detailsCreditDetails.getDateEcheance());
-        System.out.println("=========== RESSOURCE +===============");
         DetailsCredit updatedDetailsCredit = detailsCreditService.update(id, detailsCreditDetails);
         return new ResponseEntity<>(updatedDetailsCredit, HttpStatus.OK);
     }
@@ -83,18 +70,6 @@ public class DetailsCreditResource {
     @PutMapping("/deleteDetailsCredit/{id}")
     public ResponseEntity<DetailsCredit> delete(@PathVariable Long id, @RequestBody DetailsCredit detailsCreditDetails) {
         logger.info("+++++++++++++ DELETE DETAILSCREDIT RESSOURCE++++++++++++");
-        System.out.println("=========== DELETE RESSOURCE +===============");
-        System.out.println(id);
-        System.out.println( detailsCreditDetails.getMontantCreditAssurer());
-        System.out.println( detailsCreditDetails.getMontantCreditDecouvert());
-        System.out.println(detailsCreditDetails.getNombreDeRemboursement());
-        System.out.println(detailsCreditDetails.getMontantDesTermes());
-        System.out.println(detailsCreditDetails.getNumeroCompteClient());
-        System.out.println(detailsCreditDetails.getDureeTotaleCredit());
-        System.out.println(detailsCreditDetails.getDiffererAmortissement());
-        System.out.println(detailsCreditDetails.getDatePremierRemboursementTerme());
-        System.out.println(detailsCreditDetails.getDateEffet());
-        System.out.println(detailsCreditDetails.getDateEcheance());
         System.out.println("=========== DELETE RESSOURCE +===============");
 
         DetailsCredit updatedDetailsCredit = detailsCreditService.delete(id, detailsCreditDetails);

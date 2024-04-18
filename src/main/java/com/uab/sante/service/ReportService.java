@@ -135,6 +135,8 @@ public class ReportService {
 
             document.add(new Paragraph("RENSEIGNEMENT ADHERENT" ));
 
+            document.add(new Paragraph("Civilité : " + souscription.getPersonne().getCivilite()));
+
             document.add(new Paragraph("Nom : " + souscription.getPersonne().getNom() + "                                                     Prenom : " + souscription.getPersonne().getPrenom()));
 
             document.add(new Paragraph("Nom De Jeune Fille : " + souscription.getPersonne().getNomDeJeuneFille() + "                                   Lieu de Naissance : " + souscription.getPersonne().getLieuDeNaissance()));
@@ -155,10 +157,11 @@ public class ReportService {
 
 
             document.add(new Paragraph("CARACTERISTIQUE DU CREDIT" ));
-            document.add(new Paragraph("Montant du Crédit à Assurer : " + souscription.getDetailsCredit().getMontantCreditAssurer() + "                                                     Durée Totale du Credit : " + souscription.getDetailsCredit().getDureeTotaleCredit()));
+            document.add(new Paragraph("Montant du Crédit à Assurer : " + souscription.getDetailsCredit().getMontantCreditAssurer() + "                                                     Durée Totale du Credit : " + souscription.getDetailsCredit().getDureeTotaleCreditMois()));
             document.add(new Paragraph("Montant du Découvert à Assurer : " + souscription.getDetailsCredit().getMontantCreditDecouvert() + "                                                Différer d'amortissement : " + souscription.getDetailsCredit().getDiffererAmortissement()));
                                                                                                                                 document.add(new Paragraph("Date 1er Remboursement terme  : " + souscription.getDetailsCredit().getDatePremierRemboursementTerme()));
             document.add(new Paragraph("Nombre de remboursement : " + souscription.getDetailsCredit().getNombreDeRemboursement()));
+            document.add(new Paragraph("Periodicité Remboursement : " + souscription.getDetailsCredit().getPeriodiciteRemboursement()));
                                                                                                                                 document.add(new Paragraph("Date Effet : " + souscription.getDetailsCredit().getDateEffet()));
             document.add(new Paragraph("Montant des termes : " + souscription.getDetailsCredit().getMontantDesTermes()));
             document.add(new Paragraph("Numero de compte du client : " + souscription.getDetailsCredit().getNumeroCompteClient() + "                                                     Date d'échéance : " + souscription.getDetailsCredit().getDateEcheance()));

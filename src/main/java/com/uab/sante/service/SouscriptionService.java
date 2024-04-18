@@ -52,7 +52,7 @@ public class SouscriptionService {
     public static char[] NEW_LINE = {'\n'};
 
     public Souscription save(Souscription souscription) throws MessagingException {
-
+        System.out.println("================================== SOUSCRIPTION SERVICE =====================================");
         Personne personne = souscription.getPersonne();
         DetailsCredit detailsCredit = souscription.getDetailsCredit();
         QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
@@ -66,6 +66,7 @@ public class SouscriptionService {
         mandataire = mandataireRepository.save(mandataire);
         informationEmploi = informationEmploiRepository.save(informationEmploi);
 
+
         // Mettre à jour la souscription avec les références aux enregistrements nouvellement créés
         souscription.setPersonne(personne);
         souscription.setDetailsCredit(detailsCredit);
@@ -73,10 +74,45 @@ public class SouscriptionService {
         souscription.setMandataire(mandataire);
         souscription.setInformationEmploi(informationEmploi);
 
-        // Enregistrer la souscription complète
-        //sendEmail1();
+        System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
+        System.out.println(souscription);
+        System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
+
         return souscriptionRepository.save(souscription);
 
+    }
+    public Souscription save1(Souscription souscription) throws MessagingException {
+        System.out.println("================================== SOUSCRIPTION SERVICE =====================================");
+        Personne personne = souscription.getPersonne();
+        DetailsCredit detailsCredit = souscription.getDetailsCredit();
+        QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
+        Mandataire mandataire = souscription.getMandataire();
+        InformationEmploi informationEmploi = souscription.getInformationEmploi();
+
+        // Assurez-vous que la relation avec PeriodiciteRemboursement est correctement initialisée
+        PeriodiciteRemboursement periodiciteRemboursement = detailsCredit.getPeriodiciteRemboursement();
+        // Si nécessaire, récupérez périodicité Remboursement de la base de données en fonction de l'ID ou d'autres critères.
+
+        // Enregistrer la personne et les détails du crédit
+        personne = personneRepository.save(personne);
+        detailsCredit.setPeriodiciteRemboursement(periodiciteRemboursement); // Définissez la relation avec PeriodiciteRemboursement
+        detailsCredit = detailsCreditRepository.save(detailsCredit);
+        questionnaireMedical = questionnaireMedicalRepository.save(questionnaireMedical);
+        mandataire = mandataireRepository.save(mandataire);
+        informationEmploi = informationEmploiRepository.save(informationEmploi);
+
+        // Mettre à jour la souscription avec les références aux enregistrements nouvellement créés
+        souscription.setPersonne(personne);
+        souscription.setDetailsCredit(detailsCredit);
+        souscription.setQuestionnaireMedical(questionnaireMedical);
+        souscription.setMandataire(mandataire);
+        souscription.setInformationEmploi(informationEmploi);
+
+        System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
+        System.out.println(souscription);
+        System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
+
+        return souscriptionRepository.save(souscription);
     }
 
     public Souscription updateSouscription(Long souscriptionId, Souscription nouvelleSouscription) {
@@ -98,6 +134,7 @@ public class SouscriptionService {
         // Update InformationEmploi
         updateEntityFields(souscription.getInformationEmploi(), nouvelleSouscription.getInformationEmploi(), informationEmploiRepository);
 
+        // Update getIsCuperieur
         souscription.setIsCuperieur(nouvelleSouscription.getIsCuperieur());
 
         return souscriptionRepository.save(souscription);

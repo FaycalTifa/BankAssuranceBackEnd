@@ -1,9 +1,13 @@
 package com.uab.sante.entities;
 
+import lombok.Data;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 import java.util.Objects;
 @Entity
+@Data
 @Table(name = "PeriodiciteRemboursement")
 public class PeriodiciteRemboursement implements Serializable {
     @Id
@@ -15,6 +19,9 @@ public class PeriodiciteRemboursement implements Serializable {
     private String libelle;
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
+
+
+
 
     public PeriodiciteRemboursement(String code, String libelle, boolean isDeleted) {
         this.code = code;

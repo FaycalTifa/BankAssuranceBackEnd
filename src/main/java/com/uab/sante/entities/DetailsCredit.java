@@ -35,8 +35,11 @@ public class DetailsCredit implements Serializable {
     @Column(name = "Numero_compte_client")
     private Long numeroCompteClient;
 
-    @Column(name = "Duree_totale_credit")
-    private Long dureeTotaleCredit;
+    @Column(name = "Duree_totale_credit_mois")
+    private Long dureeTotaleCreditMois;
+
+ @Column(name = "Duree_totale_credit_annee")
+    private Long dureeTotaleCreditAnnee;
 
     @Column(name = "Differer_amortissement")
     private Long differerAmortissement;
@@ -58,6 +61,11 @@ public class DetailsCredit implements Serializable {
 
     @Column(name = "isDecouvert")
     private Boolean isDecouvert ;
+
+    @ManyToOne
+    @JoinColumn(name = "periodicite_remboursement_id") // Assurez-vous de remplacer "periodicite_remboursement_id" par le nom réel de la colonne dans votre table DetailsCredit qui fait référence à la table PeriodiciteRemboursement.
+    private PeriodiciteRemboursement periodiciteRemboursement;
+
 
 
 }

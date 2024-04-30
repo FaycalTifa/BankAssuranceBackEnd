@@ -65,7 +65,6 @@ public class InformationEmploiResource {
         System.out.println( informationEmploiDetails.getDateEmbauche());
         System.out.println(informationEmploiDetails.getAdresseEmployeur());
         System.out.println(informationEmploiDetails.getProfessionActuelle());
-        System.out.println(informationEmploiDetails.getTypeDeContrat());
         System.out.println(informationEmploiDetails.getTelEmployeur());
         System.out.println(informationEmploiDetails.getNumeroCNSS());
         System.out.println(informationEmploiDetails.getNumeroRCCMIFU());
@@ -89,7 +88,6 @@ public class InformationEmploiResource {
         System.out.println( informationEmploiDetails.getDateEmbauche());
         System.out.println(informationEmploiDetails.getAdresseEmployeur());
         System.out.println(informationEmploiDetails.getProfessionActuelle());
-        System.out.println(informationEmploiDetails.getTypeDeContrat());
         System.out.println(informationEmploiDetails.getTelEmployeur());
         System.out.println(informationEmploiDetails.getNumeroCNSS());
         System.out.println(informationEmploiDetails.getNumeroRCCMIFU());

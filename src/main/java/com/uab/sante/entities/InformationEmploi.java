@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 
@@ -36,9 +37,6 @@ public class InformationEmploi implements Serializable {
     @Column(name = "Profession_Actuelle")
     private String professionActuelle;
 
-    @Column(name = "Type_De_Contrat")
-    private String typeDeContrat;
-
     @Column(name = "Tel_Employeur")
     private Long telEmployeur;
 
@@ -53,6 +51,16 @@ public class InformationEmploi implements Serializable {
 
     @Column(name = "isPerte")
     private Boolean isPerte = false;
+
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
+/*
+
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, optional = true)
+    @JoinColumn(name = "type_contrat_id")
+    private TypeContrat typeContrat;
+
+*/
 
 
 }

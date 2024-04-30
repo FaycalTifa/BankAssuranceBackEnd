@@ -1,17 +1,18 @@
 package com.uab.sante.entities;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Agence")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
+@Setter
+@Getter
 public class Agence implements Serializable {
 
     @Id
@@ -21,7 +22,8 @@ public class Agence implements Serializable {
     private String libelle;
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
-
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
     public Agence( String libelle, boolean isDeleted) {
         this.libelle = libelle;
         this.isDeleted = isDeleted;

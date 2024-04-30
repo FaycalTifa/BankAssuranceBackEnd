@@ -8,14 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Service;
 
-import javax.mail.Authenticator;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
-import javax.mail.Message;
 import javax.mail.MessagingException;
-import javax.mail.internet.InternetAddress;
-import javax.mail.internet.MimeMessage;
 import javax.transaction.Transactional;
 import java.lang.reflect.Field;
 import java.util.*;
@@ -51,13 +44,23 @@ public class SouscriptionService {
     // Déclaration d'une constante de type char
     public static char[] NEW_LINE = {'\n'};
 
+
+    @Transactional
     public Souscription save(Souscription souscription) throws MessagingException {
-        System.out.println("================================== SOUSCRIPTION SERVICE =====================================");
+
+        try {
+        System.out.println("###########################3 SOUSCRIPTION SERVICE ############################");
         Personne personne = souscription.getPersonne();
         DetailsCredit detailsCredit = souscription.getDetailsCredit();
         QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
         Mandataire mandataire = souscription.getMandataire();
         InformationEmploi informationEmploi = souscription.getInformationEmploi();
+
+// Initialisez les identifiants avec des valeurs temporaires
+        personne.setId(1L); // Remplacez 1L par une valeur appropriée
+        detailsCredit.setId(2L); // Remplacez 2L par une valeur appropriée
+
+        // Initialisez de même les autres identifiants
 
         // Enregistrer la personne et les détails du crédit
         personne = personneRepository.save(personne);
@@ -65,7 +68,6 @@ public class SouscriptionService {
         questionnaireMedical = questionnaireMedicalRepository.save(questionnaireMedical);
         mandataire = mandataireRepository.save(mandataire);
         informationEmploi = informationEmploiRepository.save(informationEmploi);
-
 
         // Mettre à jour la souscription avec les références aux enregistrements nouvellement créés
         souscription.setPersonne(personne);
@@ -79,7 +81,12 @@ public class SouscriptionService {
         System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
 
         return souscriptionRepository.save(souscription);
-
+    } catch (Exception e) {
+            System.out.println("================================== SOUSCRIPTION SERVICE Exception =====================================");
+            // Journalisez l'exception pour le débogage
+            e.printStackTrace();
+            throw new MessagingException("/////////////////////////////////////////////Erreur lors de l'enregistrement de la souscription: " + e.getMessage());
+        }
     }
     public Souscription save1(Souscription souscription) throws MessagingException {
         System.out.println("================================== SOUSCRIPTION SERVICE =====================================");

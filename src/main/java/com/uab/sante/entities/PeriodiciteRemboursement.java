@@ -4,6 +4,7 @@ import lombok.Data;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Objects;
 @Entity
@@ -19,6 +20,8 @@ public class PeriodiciteRemboursement implements Serializable {
     private String libelle;
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
 
 
 

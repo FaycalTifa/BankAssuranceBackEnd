@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 
 @Entity
 @Table(name = "Souscription")
@@ -20,6 +21,8 @@ public class Souscription implements Serializable {
 
     @Column(name = "isDeleted")
     private Boolean isDeleted = false;
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
 
     @Column(name = "isSuperieur")
     private Boolean isCuperieur = false;

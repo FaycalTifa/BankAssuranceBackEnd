@@ -80,9 +80,10 @@ public class Personne implements Serializable {
 
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
-
-    @ManyToOne
-    @JoinColumn(name = "agenceId") // Assurez-vous de remplacer "periodicite_remboursement_id" par le nom réel de la colonne dans votre table DetailsCredit qui fait référence à la table PeriodiciteRemboursement.
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
+    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.DETACH}, optional = true)
+    @JoinColumn(name = "civilite_id") // Assurez-vous de remplacer "periodicite_remboursement_id" par le nom réel de la colonne dans votre table DetailsCredit qui fait référence à la table PeriodiciteRemboursement.
     private Civilite civilite;
 
 }

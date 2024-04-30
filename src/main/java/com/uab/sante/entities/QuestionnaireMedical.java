@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -17,7 +18,8 @@ public class QuestionnaireMedical implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
     @Column(name = "Question1")
     private Boolean question1;
 

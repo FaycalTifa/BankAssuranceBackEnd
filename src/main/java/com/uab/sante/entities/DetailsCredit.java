@@ -56,15 +56,19 @@ public class DetailsCredit implements Serializable {
     @Column(name = "isDeleted")
     private Boolean isDeleted = false;
 
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
+
     @Column(name = "isDiffere")
     private Boolean isDiffere ;
 
     @Column(name = "isDecouvert")
     private Boolean isDecouvert ;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE}, optional = true)
     @JoinColumn(name = "periodicite_remboursement_id") // Assurez-vous de remplacer "periodicite_remboursement_id" par le nom réel de la colonne dans votre table DetailsCredit qui fait référence à la table PeriodiciteRemboursement.
     private PeriodiciteRemboursement periodiciteRemboursement;
+
 
 
 

@@ -5,6 +5,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+
 @Entity
 @Table(name = "Gestionnaire")
 @AllArgsConstructor
@@ -19,37 +21,8 @@ public class Gestionnaire {
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
 
-    public Long getId() {
-        return id;
-    }
-
-    public String getLibelle() {
-        return libelle;
-    }
-
-    public boolean isDeleted() {
-        return isDeleted;
-    }
-
-    public Agence getAgence() {
-        return agence;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setLibelle(String libelle) {
-        this.libelle = libelle;
-    }
-
-    public void setDeleted(boolean deleted) {
-        isDeleted = deleted;
-    }
-
-    public void setAgence(Agence agence) {
-        this.agence = agence;
-    }
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
 
     // Relation Many-to-One avec Agence
     @ManyToOne(fetch = FetchType.EAGER)

@@ -1,6 +1,5 @@
 package com.uab.sante.resource;
 
-import com.uab.sante.entities.Agence;
 import com.uab.sante.entities.Souscription;
 import com.uab.sante.service.SouscriptionService;
 import org.slf4j.Logger;
@@ -10,7 +9,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import javax.mail.MessagingException;
 import java.util.List;
 
 @RestController
@@ -26,17 +24,28 @@ public class SouscriptionResource {
     @PostMapping
     public ResponseEntity<Souscription> enregistrerSouscription(@RequestBody Souscription souscription) {
         System.out.println("================================== SOUSCRIPTION RESSOURCE =====================================");
+        System.out.println(souscription.getPersonne());
+        System.out.println(souscription.getPersonne().getCivilite());
+        System.out.println(souscription.getDetailsCredit().getPeriodiciteRemboursement());
         System.out.println(souscription.getDetailsCredit());
+        System.out.println(souscription.getQuestionnaireMedical());
+        System.out.println(souscription.getInformationEmploi());
+        //System.out.println(souscription.getInformationEmploi().getTypeContrat());
+        System.out.println(souscription.getMandataire());
+        System.out.println(souscription.getIsCuperieur());
         System.out.println("=================================== SOUSCRIPTION RESSOURCE ====================================");
 
         try {
+            System.out.println("********************************* SOUSCRIPTION RESSOURCE ENTRE =====================================");
             Souscription souscriptionEnregistree = souscriptionService.save(souscription);
-            System.out.println("================================== SOUSCRIPTION RESSOURCE souscriptionEnregistree =====================================");
+            System.out.println("********************************* SOUSCRIPTION RESSOURCE souscriptionEnregistree =====================================");
             System.out.println(souscriptionEnregistree);
-            System.out.println("=================================== SOUSCRIPTION RESSOURCE souscriptionEnregistree ====================================");
+            System.out.println("********************************* SOUSCRIPTION RESSOURCE souscriptionEnregistree =====================================");
 
             return new ResponseEntity<>(souscriptionEnregistree, HttpStatus.CREATED);
         } catch (Exception e) {
+            System.out.println("********************************* SOUSCRIPTION RESSOURCE Exception =====================================");
+            e.printStackTrace();
             return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
         }
     }

@@ -35,4 +35,37 @@ public class ReportResource {
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
+    @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> generatePdfReport() {
+        try {
+            byte[] pdfBytes = reportService.generatePdfReport();
+
+            // Retourner le fichier PDF sous forme de réponse HTTP
+            return ResponseEntity.ok()
+                    .contentType(MediaType.APPLICATION_PDF)
+                    .contentLength(pdfBytes.length)
+                    .body(pdfBytes);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return ResponseEntity.badRequest().body(null);
+        }
+    }
+
+
+    @GetMapping(value = "/generate/{souscriptionId}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
+    public ResponseEntity<byte[]> generatePdfReportOk(@PathVariable Long souscriptionId) {
+        try {
+            byte[] pdfBytes = reportService.generatePdfReport2(souscriptionId);
+
+            HttpHeaders headers = new HttpHeaders();
+            headers.setContentType(MediaType.APPLICATION_PDF);
+            headers.setContentDispositionFormData("filename", "souscription.pdf");
+            headers.setContentLength(pdfBytes.length);
+
+            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
+        } catch (Exception e) {
+            e.printStackTrace();
+            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 }

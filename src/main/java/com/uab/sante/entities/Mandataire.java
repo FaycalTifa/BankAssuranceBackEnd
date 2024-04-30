@@ -4,6 +4,7 @@ import lombok.*;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -52,6 +53,7 @@ public class Mandataire implements Serializable {
     @Column(name = "isDeleted")
     private Boolean isDeleted = false;
 
-
+    @Column(name = "LocalDate")
+    private LocalDate dateDuJour = LocalDate.now();
 }
 

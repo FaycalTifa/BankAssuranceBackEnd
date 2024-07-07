@@ -5,23 +5,22 @@ import com.itextpdf.text.Font;
 import com.itextpdf.text.FontFactory;
 
 import com.itextpdf.text.pdf.PdfWriter;
-import com.uab.sante.entities.Souscription;
+import com.uab.sante.entities.*;
 import com.uab.sante.repository.SouscriptionRepository;
 import net.sf.jasperreports.engine.*;
-import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
-import net.sf.jasperreports.export.SimpleExporterInput;
-import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
 import net.sf.jasperreports.view.JasperViewer;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.io.*;
 import java.time.LocalDate;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
-
 
 
 @Service
@@ -31,14 +30,15 @@ public class ReportService {
     private JasperReport jasperReport;
     @Autowired
     private SouscriptionRepository souscriptionRepository;
+    private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
+
     public void generate() {
         try {
             // Charger le fichier JasperReport (.jasper)
             File reportFile = new File("C:\\Users\\billa\\Documents\\PROJETS\\BANK ASSURANCE\\BankAssuranceBackEnd\\src\\main\\java\\com\\uab\\sante\\etat");
             if (!reportFile.exists()) {
                 // Compiler le fichier JRXML en JasperReport (.jasper)
-                JasperCompileManager.compileReportToFile("src/main/java/com/uab/sante/etat/biaReport.jrxml",
-                        "src/main/java/com/uab/sante/etat/biaReport.jaspe");
+                JasperCompileManager.compileReportToFile("src/main/java/com/uab/sante/etat/biaReport.jrxml", "src/main/java/com/uab/sante/etat/biaReport.jaspe");
             }
 
             JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportFile);
@@ -72,7 +72,6 @@ public class ReportService {
             document.open();
 
 
-
 // Ajouter une image au PDF
             Image image = Image.getInstance(imagePath); // Chemin vers l'image
             image.scaleToFit(100, 100); // Redimensionne l'image à une taille maximale de 300x300 pixels
@@ -87,15 +86,15 @@ public class ReportService {
             document.add(paragraph);
 
 
-            document.add(new Paragraph( souscription.getPersonne().getCivilite().getLibelle() + "  " + souscription.getPersonne().getNom() + "   " + souscription.getPersonne().getPrenom()     ));
+            document.add(new Paragraph(souscription.getPersonne().getCivilite().getLibelle() + "  " + souscription.getPersonne().getNom() + "   " + souscription.getPersonne().getPrenom()));
             document.add(new Paragraph("Né le   : " + souscription.getPersonne().getDateDeNaissance() + "  à  " + souscription.getPersonne().getLieuDeNaissance()));
             document.add(new Paragraph("Profession actuelle : " + souscription.getPersonne().getProfessionActuelle() + "                   Employeur : " + souscription.getPersonne().getEmployeur()));
             document.add(new Paragraph("Pièce d'identité/Passeport  : " + souscription.getPersonne().getNumeroPiecePasseport() + "     Fait le  : " + souscription.getPersonne().getDateEtablissement() + "      à : " + souscription.getPersonne().getLieuEtablissement()));
-            document.add(new Paragraph("Taille : " + souscription.getPersonne().getTaille() + "          Poids : " + souscription.getPersonne().getPoids() + "    Tension : " + souscription.getPersonne().getTension()  ));
+            document.add(new Paragraph("Taille : " + souscription.getPersonne().getTaille() + "          Poids : " + souscription.getPersonne().getPoids() + "    Tension : " + souscription.getPersonne().getTension()));
             document.add(new Paragraph("Adresse Postale  : " + souscription.getPersonne().getAdressePostale() + "      Telephone : " + souscription.getPersonne().getTelephone() + "       Email : " + souscription.getPersonne().getEmail()));
             document.add(new Paragraph("Adresse Secours : " + souscription.getPersonne().getAdresseSecours() + "      Telephone Secours : " + souscription.getPersonne().getTelephoneSecours() + "                     Email Secours : " + souscription.getPersonne().getEmailSecours()));
 
-            document.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------- " ));
+            document.add(new Paragraph("---------------------------------------------------------------------------------------------------------------------------------- "));
 
             Chunk chunk1 = new Chunk("CARACTERISTIQUE DU CREDIT                                                                                             ", font);
             chunk1.setBackground(BaseColor.CYAN); // Couleur de fond bleu clair
@@ -108,7 +107,7 @@ public class ReportService {
             document.add(new Paragraph("Montant des termes : " + souscription.getDetailsCredit().getMontantDesTermes() + "                                  Numero de compte du client : " + souscription.getDetailsCredit().getNumeroCompteClient()));
             document.add(new Paragraph("Date d'échéance : " + souscription.getDetailsCredit().getDateEcheance()));
 
-            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  " ));
+            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  "));
 
             Chunk chunk2 = new Chunk("QUESTIONNAIRE MEDICAL                                                                                             ", font);
             chunk2.setBackground(BaseColor.CYAN); // Couleur de fond bleu clair
@@ -123,13 +122,13 @@ public class ReportService {
             document.add(new Paragraph("3. Suivez-vous un traitement médical ?"));
             document.add(new Paragraph("    Réponse : " + souscription.getQuestionnaireMedical().getQuestion3() + "      Detail : " + souscription.getQuestionnaireMedical().getDetail3()));
 
-            document.add(new Paragraph("4. Avez-vous fait récemment le test de l'hépatite B et ou SIDA ? " ));
+            document.add(new Paragraph("4. Avez-vous fait récemment le test de l'hépatite B et ou SIDA ? "));
             document.add(new Paragraph("    Réponse : " + souscription.getQuestionnaireMedical().getQuestion4() + "      Detail : " + souscription.getQuestionnaireMedical().getDetail4()));
 
             document.add(new Paragraph("5. Etes-vous titulaire d'une pension d'invalidité ? "));
             document.add(new Paragraph("    Réponse : " + souscription.getQuestionnaireMedical().getQuestion5() + "      Detail : " + souscription.getQuestionnaireMedical().getDetail5()));
 
-            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  " ));
+            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  "));
             Chunk chunk3 = new Chunk("INFORMATIONS PERSONNELLES LIEES A LA GARANTIE PERTE EMPLOI                   ", font);
             chunk3.setBackground(BaseColor.CYAN); // Couleur de fond bleu clair
             Paragraph paragraph3 = new Paragraph(chunk3);
@@ -138,22 +137,22 @@ public class ReportService {
             document.add(new Paragraph("Employeur : " + souscription.getInformationEmploi().getEmployeur() + "                                                 Profession actuelle : " + souscription.getInformationEmploi().getProfessionActuelle()));
             document.add(new Paragraph("Date d'embauche  : " + souscription.getInformationEmploi().getDateEmbauche() + "                                     Numero CNSS : " + souscription.getInformationEmploi().getNumeroCNSS()));
             document.add(new Paragraph("Tel Employeur : " + souscription.getInformationEmploi().getTelEmployeur() + "                                     Numero RCCM et IFU : " + souscription.getInformationEmploi().getNumeroRCCMIFU()));
-            document.add(new Paragraph("Adresse Employeur : " + souscription.getInformationEmploi().getAdresseEmployeur() ));
+            document.add(new Paragraph("Adresse Employeur : " + souscription.getInformationEmploi().getAdresseEmployeur()));
 
-            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  " ));
+            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  "));
             Chunk chunk4 = new Chunk("RESERVE A LA BANQUE OU AU MANDATAIRE UAB VIE                        ", font);
             chunk4.setBackground(BaseColor.CYAN); // Couleur de fond bleu clair
             Paragraph paragraph4 = new Paragraph(chunk3);
             document.add(paragraph4);
             document.add(new Paragraph("Capital assuré : " + souscription.getMandataire().getCapitalAssurer() + "                                                  Prime Découvert : " + souscription.getMandataire().getPrimeDecouvert()));
-            document.add(new Paragraph("Prime Perte d'emploi : " + souscription.getMandataire().getPrimeGarantiePerteEmploi() + "                                       Prime Amortissable : " + souscription.getMandataire().getPrimeSimple() ));
+            document.add(new Paragraph("Prime Perte d'emploi : " + souscription.getMandataire().getPrimeGarantiePerteEmploi() + "                                       Prime Amortissable : " + souscription.getMandataire().getPrimeSimple()));
             document.add(new Paragraph("Prime Différé : " + souscription.getMandataire().getPrimeDiffere() + "                                           Prime Totale : " + souscription.getMandataire().getPrimeTotale()));
             document.add(new Paragraph("Numero de compte UAB VIE : " + souscription.getMandataire().getNumeroDeCompteUABVie()));
             document.add(new Paragraph("                                                                                                                                                                                                                                                                                                                                        "));
 
             // Ajoutez d'autres informations de la souscription selon vos besoins
 
-            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  " ));
+            document.add(new Paragraph("----------------------------------------------------------------------------------------------------------------------------------  "));
             document.add(new Paragraph("                                                                                                                                                                                                                                                                                                                                        "));
 
             document.add(new Paragraph("                                                           Signature "));
@@ -161,13 +160,9 @@ public class ReportService {
 
             document.add(new Paragraph("Ahérent                                            bénéficiere                                     Assureur/Mandataire"));
 
-            document.add(new Paragraph("                                                                                                                                               *" +
-                    "                                                                                                                                                                                 " +
-                    "                                                                                                                                              " +
-                    "                                                                                                                                                                  " +
-                    "        "));
+            document.add(new Paragraph("                                                                                                                                               *" + "                                                                                                                                                                                 " + "                                                                                                                                              " + "                                                                                                                                                                  " + "        "));
 
-            document.add(new Paragraph("                                                           Fait le : " + LocalDate.now() ));
+            document.add(new Paragraph("                                                           Fait le : " + LocalDate.now()));
 
 
             document.close();
@@ -179,77 +174,165 @@ public class ReportService {
     }
 
 
-    public static byte[] generatePdfReport() throws JRException, FileNotFoundException {
-        String fileName = "src/main/java/com/uab/sante/etat/biaReport.jrxml"; // Remplacez par le chemin de votre fichier JRXML
-        String outFile = "C:\\Users\\billa\\Documents\\DB\\fichier.pdf"; // Chemin où le PDF généré sera enregistré
-
-        Map<String, Object> parameter = new HashMap<String, Object>();
-        parameter.put("title", "Hi, I am Title");
-
-        // Compilation du rapport JRXML en fichier JasperReport (.jasper)
-        JasperCompileManager.compileReportToFile(fileName);
-
-        // Chargement du rapport compilé
-        JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(fileName.replace(".jrxml", ".jasper"));
-
-        // Remplissage du rapport avec des données
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameter, new JREmptyDataSource());
-
-        // Export du rapport au format PDF
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-
-        // Retourner le tableau d'octets représentant le fichier PDF généré
-        return outputStream.toByteArray();
-    }
-
-    public static void main(String[] args) {
-        try {
-            byte[] pdfBytes = generatePdfReport();
-            // Vous pouvez faire ce que vous voulez avec le tableau d'octets représentant le fichier PDF, par exemple, l'écrire dans un fichier
-            // FileOutputStream fos = new FileOutputStream("chemin/vers/le/fichier.pdf");
-            // fos.write(pdfBytes);
-            // fos.close();
-            System.out.println("Report Generated!");
-        } catch (Exception e) {
-            e.printStackTrace();
+    public Map<String, Object> getSouscriptionDetails(Long souscriptionId) {
+        Souscription souscription = souscriptionRepository.findById(souscriptionId).orElse(null);
+        if (souscription == null) {
+            // Gérer le cas où la souscription n'est pas trouvée
+            return null;
         }
+
+        Map<String, Object> details = new HashMap<>();
+        details.put("montantCreditAssurer", souscription.getDetailsCredit().getMontantCreditAssurer());
+        details.put("question2", souscription.getQuestionnaireMedical().getQuestion2());
+
+        return details;
     }
 
 
-    public byte[] generatePdfReport2(Long souscriptionId) throws JRException {
-        try {
-            // Charger le fichier JasperReport (.jasper)
-            String reportPath =  "src/main/java/com/uab/sante/etat/biaTest.jasper";
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObjectFromFile(reportPath);
+    public byte[] generateReport1(Long souscriptionId) throws JRException {
+        Souscription souscription = souscriptionRepository.findById(souscriptionId).orElseThrow(() -> new IllegalArgumentException("Invalid souscription ID"));
+        Personne personne = souscription.getPersonne();
 
-            // Récupérer les informations de la souscription à partir de son identifiant
-            Souscription souscription = souscriptionRepository.findById(souscriptionId)
-                    .orElseThrow(() -> new ChangeSetPersister.NotFoundException());
 
-            // Préparer les paramètres pour le rapport
-            // Ici, vous pouvez passer les objets directement, ou extraire les données nécessaires de la souscription
-            Map<String, Object> parameters = new HashMap<>();
-            parameters.put("nom", souscription.getPersonne().getNom());
-            parameters.put("prenon", souscription.getPersonne().getPrenom());
-            parameters.put("questionnaireMedical", souscription.getQuestionnaireMedical());
-            parameters.put("Mandataire", souscription.getMandataire());
-            parameters.put("InformationEmploi", souscription.getInformationEmploi());
-            // Ajoutez d'autres paramètres selon vos besoins
-
-            // Remplir le rapport avec les données de la souscription
-            JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
-
-            // Exporter le rapport en PDF
-            ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
-            JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-
-            return outputStream.toByteArray();
-        } catch (Exception e) {
-            e.printStackTrace();
-            throw new JRException("Erreur lors de la génération du rapport PDF: " + e.getMessage());
+        // Log the person details to ensure they are being retrieved correctly
+        if (personne == null) {
+            logger.error("Personne is null for Souscription ID: " + souscriptionId);
+        } else {
+            logger.info("Personne details: " + personne.toString());
         }
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(personne));
+
+        InputStream reportStream = getClass().getResourceAsStream("etat/BIA_Letter.jrxml");
+        if (reportStream == null) {
+            throw new JRException("Report template not found");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("nom", "Détails de la Personne");
+        parameters.put("prenom", "Détails de la Personne");
+        parameters.put("nomDeJeuneFille", "Détails de la Personne");
+        parameters.put("dateDeNaissance", "Détails de la Personne");
+        parameters.put("lieuDeNaissance", "Détails de la Personne");
+        parameters.put("professionActuelle", "Détails de la Personne");
+        parameters.put("employeur", "Détails de la Personne");
+        parameters.put("numeroPiecePasseport", "Détails de la Personne");
+        parameters.put("telephone", "Détails de la Personne");
+        parameters.put("lieuEtablissement", "Détails de la Personne");
+        parameters.put("numeroPiecePasseport", "Détails de la Personne");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        return JasperExportManager.exportReportToPdf(jasperPrint);
     }
+
+
+    public byte[] generateReport(Long souscriptionId) throws JRException {
+        Souscription souscription = souscriptionRepository.findById(souscriptionId)
+                .orElseThrow(() -> new IllegalArgumentException("Invalid souscription ID"));
+        Personne personne = souscription.getPersonne();
+        DetailsCredit detailsCredit = souscription.getDetailsCredit();
+        Mandataire mandataire = souscription.getMandataire();
+        QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
+        InformationEmploi informationEmploi = souscription.getInformationEmploi();
+
+        // Log the person details to ensure they are being retrieved correctly
+        if (personne == null) {
+            logger.error("Personne is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("Personne is null for the given Souscription ID");
+        } else {
+            logger.info("Personne details: " + personne.toString());
+        }
+
+        // Log the credit details to ensure they are being retrieved correctly
+        if (detailsCredit == null) {
+            logger.error("DetailsCredit is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("DetailsCredit is null for the given Souscription ID");
+        } else {
+            logger.info("DetailsCredit details: " + detailsCredit.toString());
+        }
+
+        // Log the mandataire to ensure they are being retrieved correctly
+        if (mandataire == null) {
+            logger.error("Mandataire is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("Mandataire is null for the given Souscription ID");
+        } else {
+            logger.info("Mandataire details: " + mandataire.toString());
+        }
+
+        // Log the questionnaireMedical to ensure they are being retrieved correctly
+        if (questionnaireMedical == null) {
+            logger.error("QuestionnaireMedical is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("QuestionnaireMedical is null for the given Souscription ID");
+        } else {
+            logger.info("QuestionnaireMedical details: " + questionnaireMedical.toString());
+        }
+
+        // Log the informationEmploi to ensure they are being retrieved correctly
+        if (informationEmploi == null) {
+            logger.error("InformationEmploi is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("InformationEmploi is null for the given Souscription ID");
+        } else {
+            logger.info("InformationEmploi details: " + informationEmploi.toString());
+        }
+
+        Map<String, Object> dataMap = new HashMap<>();
+        dataMap.put("nom", personne.getNom());
+        dataMap.put("civilite", personne.getCivilite().getLibelle());
+        dataMap.put("prenom", personne.getPrenom());
+        dataMap.put("dateDeNaissance", personne.getDateDeNaissance());
+        dataMap.put("lieuDeNaissance", personne.getLieuDeNaissance());
+        dataMap.put("professionActuelle", personne.getProfessionActuelle());
+        dataMap.put("numeroPiecePasseport", personne.getNumeroPiecePasseport());
+        dataMap.put("telephone", personne.getTelephone());
+        dataMap.put("email", personne.getEmail());
+        dataMap.put("telephoneSecours", personne.getTelephoneSecours());
+        dataMap.put("employeur", personne.getEmployeur());
+        dataMap.put("dateEtablissement", personne.getDateEtablissement());
+        dataMap.put("montantCreditAssurer", detailsCredit.getMontantCreditAssurer());
+        dataMap.put("datePremierRemboursementTerme", detailsCredit.getDatePremierRemboursementTerme());
+        dataMap.put("nombreDeRemboursement", detailsCredit.getNombreDeRemboursement());
+        dataMap.put("differerAmortissement", detailsCredit.getDiffererAmortissement());
+        dataMap.put("montantDesTermes", detailsCredit.getMontantDesTermes());
+        dataMap.put("numeroCompteClient", detailsCredit.getNumeroCompteClient());
+        dataMap.put("dureeTotaleCreditMois", detailsCredit.getDureeTotaleCreditMois());
+        dataMap.put("dateEffet", detailsCredit.getDateEffet());
+        dataMap.put("dateEcheance", detailsCredit.getDateEcheance());
+        dataMap.put("primeTotale", mandataire.getPrimeTotale());
+        dataMap.put("primeSimple", mandataire.getPrimeSimple());
+        dataMap.put("primeGarantiePerteEmploi", mandataire.getPrimeGarantiePerteEmploi());
+        dataMap.put("primeDiffere", mandataire.getPrimeDiffere());
+        dataMap.put("primeDecouvert", mandataire.getPrimeDecouvert());
+        dataMap.put("numeroDeCompteUABVie", mandataire.getNumeroDeCompteUABVie());
+        dataMap.put("libelle", detailsCredit.getPeriodiciteRemboursement().getLibelle());
+        dataMap.put("dateEmbauche", informationEmploi.getDateEmbauche());
+        dataMap.put("adresseEmployeur", informationEmploi.getAdresseEmployeur());
+        dataMap.put("telEmployeur", informationEmploi.getTelEmployeur());
+        dataMap.put("numeroCNSS", informationEmploi.getNumeroCNSS());
+        dataMap.put("numeroRCCMIFU", informationEmploi.getNumeroRCCMIFU());
+        dataMap.put("numeroRCCMIFU", informationEmploi.getNumeroRCCMIFU());
+
+        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(dataMap));
+
+        // Log to verify the path and availability of the template
+        logger.info("Loading report template from classpath: etat/uabBia.jrxml");
+        InputStream reportStream = getClass().getClassLoader().getResourceAsStream("etat/uabBia.jrxml");
+        if (reportStream == null) {
+            logger.error("Report template not found in classpath: etat/uabBia.jrxml");
+            throw new JRException("Report template not found in classpath: etat/uabBia.jrxml");
+        }
+
+        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
+
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("title", "Détails de la Personne et du Crédit");
+
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
+        return JasperExportManager.exportReportToPdf(jasperPrint);
+    }
+
+
 
 
 }

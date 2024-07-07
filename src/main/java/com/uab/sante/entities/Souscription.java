@@ -47,6 +47,13 @@ public class Souscription implements Serializable {
     @JoinColumn(name = "informationEmploi_id")
     private InformationEmploi informationEmploi;
 
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "banque_id")
+    private Banque banque;
+
+
+
+
 
 
 }

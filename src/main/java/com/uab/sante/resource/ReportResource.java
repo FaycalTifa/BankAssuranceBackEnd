@@ -3,7 +3,9 @@ package com.uab.sante.resource;
 import com.uab.sante.entities.Souscription;
 import com.uab.sante.service.ReportService;
 import com.uab.sante.service.SouscriptionService;
+import net.sf.jasperreports.engine.JRException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -35,37 +37,20 @@ public class ReportResource {
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
     }
 
-    @GetMapping(value = "/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<byte[]> generatePdfReport() {
-        try {
-            byte[] pdfBytes = reportService.generatePdfReport();
 
-            // Retourner le fichier PDF sous forme de réponse HTTP
-            return ResponseEntity.ok()
-                    .contentType(MediaType.APPLICATION_PDF)
-                    .contentLength(pdfBytes.length)
-                    .body(pdfBytes);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return ResponseEntity.badRequest().body(null);
-        }
+    @GetMapping("/{souscriptionId}")
+    public ResponseEntity<byte[]> getReport(@PathVariable Long souscriptionId) throws JRException {
+        byte[] reportBytes = reportService.generateReport(souscriptionId);
+
+        HttpHeaders headers = new HttpHeaders();
+        headers.setContentType(MediaType.APPLICATION_PDF);
+        headers.setContentDispositionFormData("filename", "report.pdf");
+
+        return ResponseEntity.ok()
+                .headers(headers)
+                .body(reportBytes);
     }
 
 
-    @GetMapping(value = "/generate/{souscriptionId}/pdf", produces = MediaType.APPLICATION_PDF_VALUE)
-    public ResponseEntity<byte[]> generatePdfReportOk(@PathVariable Long souscriptionId) {
-        try {
-            byte[] pdfBytes = reportService.generatePdfReport2(souscriptionId);
 
-            HttpHeaders headers = new HttpHeaders();
-            headers.setContentType(MediaType.APPLICATION_PDF);
-            headers.setContentDispositionFormData("filename", "souscription.pdf");
-            headers.setContentLength(pdfBytes.length);
-
-            return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-        } catch (Exception e) {
-            e.printStackTrace();
-            return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
-        }
-    }
 }

@@ -38,6 +38,9 @@ public class SouscriptionService {
     @Autowired
     private InformationEmploiRepository informationEmploiRepository;
     @Autowired
+    private BanqueRepository banqueRepository;
+
+    @Autowired
     private static final Logger logger = LoggerFactory.getLogger(SouscriptionService.class);
 
     public static final String GREETING = "tif@8899";
@@ -55,6 +58,7 @@ public class SouscriptionService {
         QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
         Mandataire mandataire = souscription.getMandataire();
         InformationEmploi informationEmploi = souscription.getInformationEmploi();
+        Banque banque = souscription.getBanque();
 
 // Initialisez les identifiants avec des valeurs temporaires
         personne.setId(1L); // Remplacez 1L par une valeur appropriée
@@ -68,6 +72,7 @@ public class SouscriptionService {
         questionnaireMedical = questionnaireMedicalRepository.save(questionnaireMedical);
         mandataire = mandataireRepository.save(mandataire);
         informationEmploi = informationEmploiRepository.save(informationEmploi);
+        banque = banqueRepository.save(banque);
 
         // Mettre à jour la souscription avec les références aux enregistrements nouvellement créés
         souscription.setPersonne(personne);
@@ -75,6 +80,7 @@ public class SouscriptionService {
         souscription.setQuestionnaireMedical(questionnaireMedical);
         souscription.setMandataire(mandataire);
         souscription.setInformationEmploi(informationEmploi);
+        souscription.setBanque(banque);
 
         System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
         System.out.println(souscription);
@@ -87,39 +93,6 @@ public class SouscriptionService {
             e.printStackTrace();
             throw new MessagingException("/////////////////////////////////////////////Erreur lors de l'enregistrement de la souscription: " + e.getMessage());
         }
-    }
-    public Souscription save1(Souscription souscription) throws MessagingException {
-        System.out.println("================================== SOUSCRIPTION SERVICE =====================================");
-        Personne personne = souscription.getPersonne();
-        DetailsCredit detailsCredit = souscription.getDetailsCredit();
-        QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
-        Mandataire mandataire = souscription.getMandataire();
-        InformationEmploi informationEmploi = souscription.getInformationEmploi();
-
-        // Assurez-vous que la relation avec PeriodiciteRemboursement est correctement initialisée
-        PeriodiciteRemboursement periodiciteRemboursement = detailsCredit.getPeriodiciteRemboursement();
-        // Si nécessaire, récupérez périodicité Remboursement de la base de données en fonction de l'ID ou d'autres critères.
-
-        // Enregistrer la personne et les détails du crédit
-        personne = personneRepository.save(personne);
-        detailsCredit.setPeriodiciteRemboursement(periodiciteRemboursement); // Définissez la relation avec PeriodiciteRemboursement
-        detailsCredit = detailsCreditRepository.save(detailsCredit);
-        questionnaireMedical = questionnaireMedicalRepository.save(questionnaireMedical);
-        mandataire = mandataireRepository.save(mandataire);
-        informationEmploi = informationEmploiRepository.save(informationEmploi);
-
-        // Mettre à jour la souscription avec les références aux enregistrements nouvellement créés
-        souscription.setPersonne(personne);
-        souscription.setDetailsCredit(detailsCredit);
-        souscription.setQuestionnaireMedical(questionnaireMedical);
-        souscription.setMandataire(mandataire);
-        souscription.setInformationEmploi(informationEmploi);
-
-        System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
-        System.out.println(souscription);
-        System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
-
-        return souscriptionRepository.save(souscription);
     }
 
     public Souscription updateSouscription(Long souscriptionId, Souscription nouvelleSouscription) {

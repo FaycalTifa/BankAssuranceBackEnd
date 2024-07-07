@@ -20,6 +20,8 @@ public class Gestionnaire {
     private String libelle;
     @Column(name = "isDeleted")
     private boolean isDeleted = false;
+    @Column(name = "telephone")
+    private String telephone;
 
     @Column(name = "LocalDate")
     private LocalDate dateDuJour = LocalDate.now();
@@ -28,5 +30,7 @@ public class Gestionnaire {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "agence_id")
     private Agence agence;
+
+
 }
 

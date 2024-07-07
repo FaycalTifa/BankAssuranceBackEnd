@@ -1,0 +1,556 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="ReportBia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="4c9f0e2b-a7ee-4055-8dc4-84bf69711a45">
+    <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <queryString>
+        <![CDATA[]]>
+    </queryString>
+    <field name="nom" class="java.lang.String"/>
+    <field name="prenom" class="java.lang.String"/>
+    <field name="nomDeJeuneFille" class="java.lang.String"/>
+    <field name="dateDeNaissance" class="java.lang.String"/>
+    <field name="lieuDeNaissance" class="java.lang.String"/>
+    <field name="numeroPiecePasseport" class="java.lang.Long"/>
+    <field name="employeur" class="java.lang.String"/>
+    <field name="professionActuelle" class="java.lang.String"/>
+    <field name="dateEtablissement" class="java.sql.Date"/>
+    <field name="lieuEtablissement" class="java.lang.String"/>
+    <field name="telephone" class="java.lang.Long"/>
+    <field name="email" class="java.lang.String"/>
+    <field name="telephoneSecours" class="java.lang.Long"/>
+    <field name="primeTotale" class="java.lang.Long"/>
+    <variable name="nom" class="java.lang.String"/>
+    <background>
+        <band splitType="Stretch"/>
+    </background>
+    <title>
+        <band height="359" splitType="Stretch">
+            <staticText>
+                <reportElement x="40" y="60" width="100" height="30" uuid="79184822-8ad4-4645-a0fc-c0ba249bfc66"/>
+                <text><![CDATA[Police : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="220" y="150" width="100" height="24" uuid="7b4fcd7a-3144-4eb0-8a99-de4c4819a58a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="7c839c61-1061-40a7-b375-a899cd598bbd"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{nom}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="40" y="80" width="100" height="30" uuid="9e18d01f-1ce1-4844-baae-010b6abf60df"/>
+                <text><![CDATA[Police : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="330" y="60" width="100" height="30" uuid="482de1fb-d42f-4e15-89a3-3bf86347bac4"/>
+                <text><![CDATA[Agence :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="330" y="80" width="100" height="30" uuid="500c8751-09da-4e0e-a4cb-2c0a9a2e2948"/>
+                <text><![CDATA[Gestionnaire :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="60" y="-10" width="410" height="30" backcolor="#1D9FAB" uuid="81e3c6ba-976f-4734-bac5-4050c94bfdbc"/>
+                <textElement textAlignment="Center">
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[BULLETIN INDIVIDUEL D'ADHESION CONTRAT COLLECTIF DECES EMPRUNTEUR]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-10" y="117" width="569" height="143" forecolor="#1D9FAB" uuid="24ad43bf-889f-491c-82bb-afc670cd64a4"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="-10" y="117" width="569" height="23" backcolor="#1D9FAB" uuid="808adad4-d6ce-496d-82c9-8ba30dc78282"/>
+                <text><![CDATA[  RENSEINGNEMENT RELATIF A L'ADHERENT]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="150" width="100" height="20" uuid="fedc3d7a-40c6-4219-a401-4fb015569e3c"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Civilité: ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="190" y="150" width="100" height="20" uuid="26e85e71-98fe-44ca-9762-b689c2b53507"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nom :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="150" width="100" height="20" uuid="d91764ad-8094-4c60-b78c-0d5c7404a4bd"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Prenom :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="430" y="150" width="100" height="24" uuid="0c367860-5093-46bc-9365-31096e5c15bd"/>
+                <textFieldExpression><![CDATA[$F{prenom}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="174" width="100" height="20" uuid="22a26023-aff7-41d9-971d-c51feb8efafe"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nom de jeune file : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="190" y="174" width="90" height="20" uuid="7e43dfe6-b7b3-4b7d-a671-65a386a81edd"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Date de naissance :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="174" width="90" height="20" uuid="9b9eabcc-fc69-40e5-bd89-cca449779950"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Lieu de naissance :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="90" y="174" width="100" height="20" uuid="82d7f744-b6bd-42b1-95f8-45bb7ccb1fd7"/>
+                <textFieldExpression><![CDATA[$F{nomDeJeuneFille}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="280" y="174" width="100" height="20" uuid="df9eec1f-f90d-4d18-9ac7-2ece79f69553"/>
+                <textFieldExpression><![CDATA[$F{dateDeNaissance}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="470" y="174" width="100" height="20" uuid="d44d7cca-7c39-4a11-b08b-4fa4d1a3cb81"/>
+                <textFieldExpression><![CDATA[$F{lieuDeNaissance}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="194" width="100" height="20" uuid="a4ff9198-4a1c-493a-ad8c-5f1ae6ffccd9"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Profession actuelle :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="190" y="194" width="100" height="20" uuid="3b166953-cc3c-4bed-81c7-d30ea668723c"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Employeur : ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="380" y="194" width="100" height="20" uuid="a91c3102-0461-486e-af51-e42e5886f579"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[N°Passport :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="433" y="194" width="126" height="24" uuid="417ffa4a-ca96-4446-a8b4-acf86de10840"/>
+                <textFieldExpression><![CDATA[$F{numeroPiecePasseport}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="250" y="194" width="100" height="20" uuid="5fb6a9c5-342a-4b68-82d8-d62db8b61b4f"/>
+                <textFieldExpression><![CDATA[$F{employeur}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="100" y="195" width="106" height="22" uuid="2d5928e2-faa8-4c25-84a6-2b899e5e79c7"/>
+                <textFieldExpression><![CDATA[$F{professionActuelle}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="217" width="100" height="20" uuid="16941103-551a-4c09-9141-0bafeaf30dc3"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Date piece :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="190" y="220" width="100" height="20" uuid="edd4acca-baff-49cb-81be-6e1042d733bc"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[etablie à : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="60" y="217" width="118" height="19" uuid="cb8a6b18-3a46-4efc-aec4-904b63a34ccf"/>
+                <textFieldExpression><![CDATA[$F{dateEtablissement}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="240" y="220" width="100" height="20" uuid="d01263ec-7c80-4609-bf54-21a290356cca"/>
+                <textFieldExpression><![CDATA[$F{lieuEtablissement}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="380" y="220" width="100" height="20" uuid="8e68ab13-1360-43bc-bf21-1774e23c5170"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Telephone : ]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="440" y="220" width="100" height="22" uuid="d4da0cef-6d34-4a24-8612-eb9374813804"/>
+                <textFieldExpression><![CDATA[$F{telephone}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="0" y="236" width="100" height="20" uuid="ce52bc7f-7f9f-4ffd-a53d-660e32cdb391"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Email :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="40" y="237" width="100" height="18" uuid="580b3d73-ce83-427d-b397-d16015c10194"/>
+                <textFieldExpression><![CDATA[$F{email}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement x="190" y="240" width="100" height="20" uuid="e05882f2-298c-4473-8c89-e00b6b911b4d"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Assistance :]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="250" y="240" width="100" height="30" uuid="0ebdfbc5-4143-4e94-8371-3740b547e983"/>
+                <textFieldExpression><![CDATA[$F{telephoneSecours}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <pageHeader>
+        <band height="149" splitType="Stretch">
+            <staticText>
+                <reportElement x="-10" y="-99" width="569" height="149" forecolor="#1D9FAB" uuid="14d32bc1-594c-4dac-990f-837d6c1684e0"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="-10" y="-99" width="569" height="23" backcolor="#1D9FAB" uuid="c6fbe6fb-5fe3-491a-9e96-d2bf584a128c"/>
+                <text><![CDATA[  CARACTERISTIQUE NDU CREDIT]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-70" width="140" height="20" uuid="83b944b9-43a0-4615-b180-bbc078ea3996"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Montant du credit a assurer :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="-70" width="140" height="20" uuid="08daa192-1f92-4df3-8e79-de112d3fdd61"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Durée totale du credit :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-50" width="140" height="20" uuid="a1a245d3-5471-4881-a406-b578931d786d"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Montant découvert à assurer :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="-50" width="140" height="20" uuid="2988dbe9-1d05-4c8c-876d-c29f35eb48c8"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Différé amortissement :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-30" width="140" height="20" uuid="c2ccb010-b5a1-4d57-aeb5-fcbed4d8608d"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Periodicité remboursement :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="-30" width="162" height="20" uuid="5ab89ef6-7987-4b83-9148-2d668d265aca"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Date 1er remboursement terme :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-10" width="140" height="20" uuid="c310de4b-c026-4c35-ab68-81788253cd63"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Nombre de remboursement]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="10" width="140" height="20" uuid="aec7f111-ca90-4545-8ea6-2b32ffb6e42d"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Montant des termes]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="-10" width="60" height="20" uuid="82bba538-7555-45a2-a269-2353013f8592"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Date effet :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="270" y="10" width="110" height="20" uuid="0aa5efd6-ae76-4799-85b4-6eaae8a8ed32"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Date echéance:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="30" width="140" height="20" uuid="4210cbb7-f9b2-44b3-a660-234bd493f0cb"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[N° Compte client :]]></text>
+            </staticText>
+        </band>
+    </pageHeader>
+    <columnHeader>
+        <band height="195" splitType="Stretch">
+            <staticText>
+                <reportElement x="-10" y="-99" width="569" height="159" forecolor="#1D9FAB" uuid="6315a8e9-fdea-4661-a66e-8dbcc6e0d97d"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="-10" y="-99" width="569" height="23" backcolor="#1D9FAB" uuid="2cfa61ad-cc9b-4e3c-bf6c-f6b34f4b20e8"/>
+                <text><![CDATA[  QUESTIONNAIRE MEDICAL]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-70" width="50" height="20" uuid="ee2c16bf-43a8-4243-8f5c-a8488dc7212a"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Taille :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="200" y="-70" width="50" height="20" uuid="8b2bbc13-066f-4268-9422-22e7fd818c88"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Poids :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="350" y="-70" width="100" height="20" uuid="67a78cdf-4214-4a26-82e7-0bc30bfb4db0"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Tension arterielle :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-40" width="290" height="20" uuid="2fdbc522-5871-4ab0-b84c-c3a7aadea9d4"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[1.  Avez-vous des antécédents médicaux et ou churirgicaux?]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-20" width="350" height="20" uuid="3e061da0-a22d-4498-9ac9-5bfabb25204f"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[2.  Etes vous porteur d’une maladie chronique nécéssitant un traitement?]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="0" width="190" height="20" uuid="3427da25-8793-4e83-ab21-c2f52ec359bd"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[3.  Suivez vous un traitement médical?]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="20" width="300" height="20" uuid="b7e78fe2-40bc-4a6a-b5d8-36d8c6cee89c"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[4.  Avez-vous fait récemment un test d’Hepatite B et ou SIDA?]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="40" width="230" height="20" uuid="2f3fa190-0e14-46db-ad59-c55ffd45b2b0"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[5. Etes vous titulaire d’une pension d’invadilité?]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="151" y="0" width="100" height="30" uuid="1e26bfb9-43c6-4edc-96d6-64b65209090c">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38b69143-73f3-4661-a54f-80d587ec9f93"/>
+                </reportElement>
+                <text><![CDATA[primeTotale]]></text>
+            </staticText>
+        </band>
+    </columnHeader>
+    <detail>
+        <band height="359" splitType="Stretch">
+            <staticText>
+                <reportElement x="-10" y="-135" width="569" height="87" forecolor="#1D9FAB" uuid="e82a51b3-47ce-4991-a1e7-82c4e4ebb8e6"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-108" width="60" height="20" uuid="36c3c8d4-73e7-4027-b43d-ab44b6ff404e"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Employeur :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="230" y="-108" width="100" height="20" uuid="1a48addd-aeb5-4812-b773-a2cbb99a9ab6"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Profession actuelle :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-88" width="90" height="20" uuid="ddd7bec2-02d8-4356-989e-476f6f0fa469"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Date embauche :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="229" y="-90" width="90" height="20" uuid="6b00b05b-a180-488e-8815-be3757e3a033"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Type contrat :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="360" y="-90" width="60" height="20" uuid="4df05181-eba0-490e-85b3-77b3b4f711dc"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[N° CNSS :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="0" y="-68" width="100" height="20" uuid="6cea99ac-34ae-4219-9ad6-969160467288"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Adresse employeur]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="230" y="-70" width="100" height="20" uuid="8947e485-efc1-45c2-9f07-d718d84e59a7"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Tel employeur]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="360" y="-70" width="60" height="20" uuid="677dc23c-754c-4c3d-8af8-7e9692281023"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[N° RCCM :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-10" y="-48" width="569" height="108" forecolor="#1D9FAB" uuid="8468d36f-17f4-45b5-914b-a72a5b84f1d7"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <staticText>
+                <reportElement mode="Opaque" x="-10" y="-48" width="569" height="23" backcolor="#1D9FAB" uuid="3b5c605c-b0a3-403f-a333-518cdfb4a7dd"/>
+                <text><![CDATA[  BANQUE OU MANDATAIRE]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-5" y="-20" width="94" height="20" uuid="6819c93b-6044-43ff-9054-127808a6dae2"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Capital assuré :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-5" y="0" width="144" height="20" uuid="a7bb74a5-6f50-4d27-9aee-785a1aa173b6"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Prime garantie deces ou IAD :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-5" y="20" width="144" height="20" uuid="eca1b29c-f3a1-48b5-9c7c-054f7ce23975"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Prime garantie perte emplois :]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-5" y="40" width="144" height="20" uuid="87a81b23-e41c-47ab-8db8-d08b15ddb7ed"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Prime garantie totale :]]></text>
+            </staticText>
+            <line>
+                <reportElement x="380" y="-25" width="1" height="85" uuid="07402b82-d4ee-42bd-84de-91676477c719"/>
+            </line>
+            <staticText>
+                <reportElement x="390" y="-20" width="158" height="20" uuid="7ffdf693-1c80-42fc-80d4-3873d944dbfd"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Periodicité paiement de la prime]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="-10" y="60" width="569" height="60" forecolor="#1D9FAB" uuid="9a2d8738-c6e9-42c2-8589-f5d5ad4847bd"/>
+                <box>
+                    <pen lineWidth="1.0" lineStyle="Solid"/>
+                </box>
+                <text><![CDATA[:]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="106" y="40" width="100" height="30" uuid="75fb539b-9fe0-4542-a508-0c83f9c88d3a">
+                    <property name="com.jaspersoft.studio.spreadsheet.connectionID" value="38b69143-73f3-4661-a54f-80d587ec9f93"/>
+                </reportElement>
+                <textFieldExpression><![CDATA[$F{primeTotale}]]></textFieldExpression>
+            </textField>
+            <staticText>
+                <reportElement mode="Opaque" x="-11" y="-135" width="569" height="23" backcolor="#1D9FAB" uuid="8d81ea34-0090-422c-b22a-225b123d4368"/>
+                <text><![CDATA[  GARANTIE PERTE EMPLOIS]]></text>
+            </staticText>
+        </band>
+    </detail>
+    <columnFooter>
+        <band height="45" splitType="Stretch"/>
+    </columnFooter>
+    <pageFooter>
+        <band height="54" splitType="Stretch"/>
+    </pageFooter>
+    <summary>
+        <band height="42" splitType="Stretch">
+            <staticText>
+                <reportElement x="-20" y="0" width="110" height="20" uuid="df44ee4f-8b55-4847-84dd-9db34eba80e5"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[signature adherent ]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="140" y="0" width="110" height="20" uuid="d2add08e-aef0-4c3a-b0f2-9b79ec25dd38"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Beneficiaire]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="310" y="0" width="110" height="20" uuid="d47b00d2-3637-43fb-8e4e-1b52f463426d"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Assureur / mandataire]]></text>
+            </staticText>
+            <staticText>
+                <reportElement x="370" y="22" width="110" height="20" uuid="c371803a-358d-44ca-b36e-4d2d839452f2"/>
+                <textElement>
+                    <font isBold="true"/>
+                </textElement>
+                <text><![CDATA[Fait le : ]]></text>
+            </staticText>
+        </band>
+    </summary>
+</jasperReport>

@@ -5,6 +5,7 @@ import lombok.*;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Date;
 import java.util.Objects;
 
 @Entity
@@ -38,6 +39,9 @@ public class DetailsCredit implements Serializable {
     @Column(name = "Duree_totale_credit_mois")
     private Long dureeTotaleCreditMois;
 
+    @Column(name = "sur_mortalite")
+    private Long surMortalite;
+
  @Column(name = "Duree_totale_credit_annee")
     private Long dureeTotaleCreditAnnee;
 
@@ -45,13 +49,13 @@ public class DetailsCredit implements Serializable {
     private Long differerAmortissement;
 
     @Column(name = "Date_premier_remboursement_terme")
-    private LocalDate datePremierRemboursementTerme;
+    private String datePremierRemboursementTerme;
 
     @Column(name = "Date_effet")
-    private LocalDate dateEffet;
+    private Date dateEffet;
 
     @Column(name = "Date_echeance")
-    private LocalDate dateEcheance;
+    private Date dateEcheance;
 
     @Column(name = "isDeleted")
     private Boolean isDeleted = false;
@@ -61,6 +65,9 @@ public class DetailsCredit implements Serializable {
 
     @Column(name = "isDiffere")
     private Boolean isDiffere ;
+
+    @Column(name = "isSurMortalite")
+    private Boolean isSurMortalite ;
 
     @Column(name = "isDecouvert")
     private Boolean isDecouvert ;

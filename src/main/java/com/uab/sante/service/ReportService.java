@@ -236,6 +236,7 @@ public class ReportService {
         Mandataire mandataire = souscription.getMandataire();
         QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
         InformationEmploi informationEmploi = souscription.getInformationEmploi();
+        Banque banque = souscription.getBanque();
 
         // Log the person details to ensure they are being retrieved correctly
         if (personne == null) {
@@ -276,6 +277,13 @@ public class ReportService {
         } else {
             logger.info("InformationEmploi details: " + informationEmploi.toString());
         }
+ // Log the informationEmploi to ensure they are being retrieved correctly
+        if (banque == null) {
+            logger.error("InformationEmploi is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("InformationEmploi is null for the given Souscription ID");
+        } else {
+            logger.info("InformationEmploi details: " + banque.toString());
+        }
 
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("nom", personne.getNom());
@@ -312,6 +320,8 @@ public class ReportService {
         dataMap.put("numeroCNSS", informationEmploi.getNumeroCNSS());
         dataMap.put("numeroRCCMIFU", informationEmploi.getNumeroRCCMIFU());
         dataMap.put("numeroRCCMIFU", informationEmploi.getNumeroRCCMIFU());
+        dataMap.put("banqueLibele", banque.getLibelle());
+
 
         JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(dataMap));
 

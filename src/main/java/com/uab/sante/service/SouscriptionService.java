@@ -61,8 +61,8 @@ public class SouscriptionService {
         Banque banque = souscription.getBanque();
 
 // Initialisez les identifiants avec des valeurs temporaires
-        personne.setId(1L); // Remplacez 1L par une valeur appropriée
-        detailsCredit.setId(2L); // Remplacez 2L par une valeur appropriée
+        personne.setId(999L); // Remplacez 1L par une valeur appropriée
+        detailsCredit.setId(999L); // Remplacez 2L par une valeur appropriée
 
         // Initialisez de même les autres identifiants
 
@@ -72,7 +72,13 @@ public class SouscriptionService {
         questionnaireMedical = questionnaireMedicalRepository.save(questionnaireMedical);
         mandataire = mandataireRepository.save(mandataire);
         informationEmploi = informationEmploiRepository.save(informationEmploi);
-        banque = banqueRepository.save(banque);
+     // banque = banqueRepository.save(banque);
+            if (banque != null && banque.getId() != null) {
+                banque = banqueRepository.findById(banque.getId()).orElseThrow(() -> new IllegalArgumentException("Banque non trouvée"));
+            } else {
+                throw new IllegalArgumentException("Banque ID ne peut pas être null");
+            }
+
 
         // Mettre à jour la souscription avec les références aux enregistrements nouvellement créés
         souscription.setPersonne(personne);
@@ -113,6 +119,7 @@ public class SouscriptionService {
 
         // Update InformationEmploi
         updateEntityFields(souscription.getInformationEmploi(), nouvelleSouscription.getInformationEmploi(), informationEmploiRepository);
+        updateEntityFields(souscription.getBanque(), nouvelleSouscription.getBanque(), banqueRepository);
 
         // Update getIsCuperieur
         souscription.setIsCuperieur(nouvelleSouscription.getIsCuperieur());

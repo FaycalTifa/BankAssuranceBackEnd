@@ -49,6 +49,44 @@ public class SouscriptionService {
 
 
     @Transactional
+/*    public Souscription save(Souscription souscription) throws MessagingException {
+        try {
+            System.out.println("###########################3 SOUSCRIPTION SERVICE ############################");
+
+            Personne personne = personneRepository.save(souscription.getPersonne());
+            DetailsCredit detailsCredit = detailsCreditRepository.save(souscription.getDetailsCredit());
+            QuestionnaireMedical questionnaireMedical = questionnaireMedicalRepository.save(souscription.getQuestionnaireMedical());
+            Mandataire mandataire = mandataireRepository.save(souscription.getMandataire());
+            InformationEmploi informationEmploi = informationEmploiRepository.save(souscription.getInformationEmploi());
+
+            Banque banque;
+            if (souscription.getBanque() != null && souscription.getBanque().getId() != null) {
+                banque = banqueRepository.findById(souscription.getBanque().getId())
+                        .orElseThrow(() -> new IllegalArgumentException("Banque non trouvée"));
+            } else {
+                throw new IllegalArgumentException("Banque ID ne peut pas être null");
+            }
+
+            // Nettoyer la signature (enlever "data:image/..." si présent)
+            if (souscription.getSignature() != null && souscription.getSignature().startsWith("data:image")) {
+                String base64 = souscription.getSignature().split(",")[1];
+                souscription.setSignature(base64);
+            }
+
+            souscription.setPersonne(personne);
+            souscription.setDetailsCredit(detailsCredit);
+            souscription.setQuestionnaireMedical(questionnaireMedical);
+            souscription.setMandataire(mandataire);
+            souscription.setInformationEmploi(informationEmploi);
+            //souscription.setBanque(banque);
+
+            return souscriptionRepository.save(souscription);
+        } catch (Exception e) {
+            e.printStackTrace();
+            throw new MessagingException("Erreur lors de l'enregistrement de la souscription: " + e.getMessage());
+        }
+    }*/
+
     public Souscription save(Souscription souscription) throws MessagingException {
 
         try {
@@ -87,6 +125,14 @@ public class SouscriptionService {
         souscription.setMandataire(mandataire);
         souscription.setInformationEmploi(informationEmploi);
         souscription.setBanque(banque);
+
+            if (souscription.getSignature() != null && souscription.getSignature().startsWith("data:image")) {
+                String base64 = souscription.getSignature().split(",")[1];
+                souscription.setSignature(base64); // Stocke uniquement la partie utile
+                System.out.println("================================== SOUSCRIPTION base64 =====================================");
+                System.out.println(base64);
+                System.out.println("================================== SOUSCRIPTION base64 =====================================");
+            }
 
         System.out.println("================================== SOUSCRIPTION SERVICE save =====================================");
         System.out.println(souscription);

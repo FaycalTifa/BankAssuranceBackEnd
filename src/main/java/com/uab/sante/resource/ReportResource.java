@@ -25,7 +25,7 @@ public class ReportResource {
     @Autowired
     private SouscriptionService souscriptionService;
 
-    @GetMapping("/{id}/pdf")
+  /*  @GetMapping("/{id}/pdf")
     public ResponseEntity<byte[]> generatePdfReport(@PathVariable("id") Long id) {
         Souscription souscription = souscriptionService.getSouscriptionById(id);
         byte[] pdfBytes = reportService.generatePdfReport2(souscription);
@@ -35,7 +35,7 @@ public class ReportResource {
         headers.setContentDispositionFormData("filename", "souscription.pdf");
 
         return new ResponseEntity<>(pdfBytes, headers, HttpStatus.OK);
-    }
+    }*/
 
 
     @GetMapping("/{souscriptionId}")

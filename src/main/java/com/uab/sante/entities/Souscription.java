@@ -21,6 +21,11 @@ public class Souscription implements Serializable {
 
     @Column(name = "isDeleted")
     private Boolean isDeleted = false;
+
+    @Lob  // Permet de stocker une grande quantité de texte (Base64)
+    @Column(name = "signature", columnDefinition = "TEXT")
+    private String signature;
+
     @Column(name = "LocalDate")
     private LocalDate dateDuJour = LocalDate.now();
 

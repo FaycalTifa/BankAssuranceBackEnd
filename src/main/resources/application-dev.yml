@@ -1,16 +1,7 @@
-#spring:
-#  datasource:
-#    url: jdbc:postgresql://localhost:5432/sante
-#    username: sante
-#    password: santeVie
-#    driver-class-name: org.postgresql.Driver
-#  jpa:
-#    database: POSTGRESQL
-#    show-sql: true
-#    hibernate:
-#      ddl-auto: create
-#
-#
-#server:
-#  port=9999:
-#
+# application.yml
+spring:
+  security:
+    oauth2:
+      resourceserver:
+        jwt:
+          issuer-uri: http://localhost:8080/realms/mon-realm

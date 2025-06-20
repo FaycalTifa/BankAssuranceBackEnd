@@ -24,6 +24,9 @@ public class Agence implements Serializable {
     private boolean isDeleted = false;
     @Column(name = "LocalDate")
     private LocalDate dateDuJour = LocalDate.now();
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "gestionnaire_id")
+    private Gestionnaire gestionnaire;
     public Agence( String libelle, boolean isDeleted) {
         this.libelle = libelle;
         this.isDeleted = isDeleted;

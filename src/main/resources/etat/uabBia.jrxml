@@ -1,7 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!-- Created with Jaspersoft Studio version 6.20.0.final using JasperReports Library version 6.20.0-2bc7ab61c56f459e8176eb05c7705e145cd400ad  -->
-<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="uabBia" pageWidth="595" pageHeight="842" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbd506-3fac-4904-9fbb-8395559756a7">
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="uabBia" pageWidth="595" pageHeight="864" columnWidth="555" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="15bbd506-3fac-4904-9fbb-8395559756a7">
     <property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
+    <property name="com.jaspersoft.studio.unit." value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.pageHeight" value="inch"/>
+    <property name="com.jaspersoft.studio.unit.pageWidth" value="cm"/>
+    <property name="com.jaspersoft.studio.unit.topMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.bottomMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.leftMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.rightMargin" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnWidth" value="pixel"/>
+    <property name="com.jaspersoft.studio.unit.columnSpacing" value="pixel"/>
     <queryString>
         <![CDATA[]]>
     </queryString>
@@ -35,17 +44,20 @@
     <field name="primeTotale" class="java.lang.Long"/>
     <field name="libelle" class="java.lang.String"/>
     <field name="nombreDeRemboursement" class="java.lang.Long"/>
-    <field name="banqueLibele" class="java.lang.String"/>
+    <field name="banque" class="java.lang.String"/>
     <field name="civilite" class="java.lang.String"/>
-    <field name="Field_2" class="java.lang.String"/>
+    <field name="agence" class="java.lang.String"/>
     <field name="signatureImage" class="java.awt.Image"/>
     <field name="Field_3" class="java.lang.String"/>
     <field name="Field_4" class="java.awt.Image"/>
+    <field name="gestionnaire" class="java.lang.String"/>
+    <variable name="banque" class="java.lang.String"/>
+    <variable name="agence" class="java.lang.String"/>
     <background>
         <band splitType="Stretch"/>
     </background>
     <detail>
-        <band height="802" splitType="Stretch">
+        <band height="824" splitType="Stretch">
             <staticText>
                 <reportElement mode="Opaque" x="79" y="0" width="425" height="40" forecolor="#FFFFFF" backcolor="#1D9FAB" uuid="9ced5594-a674-42b0-b77b-844b68d51ab3"/>
                 <textElement textAlignment="Center">
@@ -387,7 +399,7 @@
                 <text><![CDATA[au profit de l'UAB VIE sur son compte N°]]></text>
             </staticText>
             <staticText>
-                <reportElement x="-5" y="720" width="110" height="20" uuid="62802476-b8d9-4f81-b08b-6702b45c86bd"/>
+                <reportElement x="0" y="720" width="110" height="20" uuid="62802476-b8d9-4f81-b08b-6702b45c86bd"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
@@ -440,18 +452,18 @@
                 <text><![CDATA[N°Client :]]></text>
             </staticText>
             <staticText>
-                <reportElement x="170" y="87" width="50" height="20" uuid="4bd03cce-440c-4148-bf93-a03b6b600942"/>
+                <reportElement x="126" y="87" width="50" height="20" uuid="4bd03cce-440c-4148-bf93-a03b6b600942"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
                 <text><![CDATA[Agence :]]></text>
             </staticText>
             <staticText>
-                <reportElement x="330" y="87" width="50" height="20" uuid="89e35866-288c-47ac-833a-b6124b5424c5"/>
+                <reportElement x="300" y="87" width="79" height="20" uuid="89e35866-288c-47ac-833a-b6124b5424c5"/>
                 <textElement>
                     <font isBold="true"/>
                 </textElement>
-                <text><![CDATA[Gestionnaire]]></text>
+                <text><![CDATA[Gestionnaire :]]></text>
             </staticText>
             <textField>
                 <reportElement x="210" y="150" width="100" height="18" uuid="79327093-4462-40f4-883a-a01e354c6ede"/>
@@ -593,10 +605,26 @@
                 <reportElement x="39" y="150" width="62" height="18" uuid="5503f620-8551-4b21-a306-a23ef5ff4287"/>
                 <textFieldExpression><![CDATA[$F{civilite}]]></textFieldExpression>
             </textField>
-            <image>
-                <reportElement x="11" y="740" width="78" height="62" uuid="6a0788a5-df52-49fd-9365-0c87a9f7d54d"/>
+            <image scaleImage="FillFrame">
+                <reportElement x="-1" y="750" width="210" height="59" forecolor="#2265F5" uuid="6a0788a5-df52-49fd-9365-0c87a9f7d54d">
+                    <property name="com.jaspersoft.studio.unit.width" value="px"/>
+                    <property name="com.jaspersoft.studio.unit.height" value="px"/>
+                </reportElement>
+                <graphicElement fill="Solid"/>
                 <imageExpression><![CDATA[$F{signatureImage}]]></imageExpression>
             </image>
+            <textField>
+                <reportElement x="44" y="88" width="100" height="18" uuid="bc31b66d-cbc5-43f1-9dd4-91ae94931351"/>
+                <textFieldExpression><![CDATA[$F{banque}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="170" y="87" width="100" height="20" uuid="4bf01bc1-06c2-4964-843d-9d1705428ad1"/>
+                <textFieldExpression><![CDATA[$F{agence}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="380" y="88" width="100" height="18" uuid="7e909014-96a1-4756-8bfe-8d4731816516"/>
+                <textFieldExpression><![CDATA[$F{gestionnaire}]]></textFieldExpression>
+            </textField>
         </band>
     </detail>
 </jasperReport>

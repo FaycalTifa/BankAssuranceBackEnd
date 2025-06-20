@@ -23,23 +23,10 @@ public class SouscriptionResource {
 
     @PostMapping
     public ResponseEntity<Souscription> enregistrerSouscription(@RequestBody Souscription souscription) {
-        System.out.println("================================== SOUSCRIPTION RESSOURCE =====================================");
-        System.out.println(souscription.getPersonne());
-        System.out.println(souscription.getPersonne().getCivilite());
-        System.out.println(souscription.getDetailsCredit().getPeriodiciteRemboursement());
-        System.out.println(souscription.getDetailsCredit());
-        System.out.println(souscription.getQuestionnaireMedical());
-        System.out.println(souscription.getInformationEmploi());
-        //System.out.println(souscription.getInformationEmploi().getTypeContrat());
-        System.out.println(souscription.getMandataire());
-        System.out.println(souscription.getIsCuperieur());
-        System.out.println("=================================== SOUSCRIPTION RESSOURCE ====================================");
 
         try {
             System.out.println("********************************* SOUSCRIPTION RESSOURCE ENTRE =====================================");
             Souscription souscriptionEnregistree = souscriptionService.save(souscription);
-            System.out.println("********************************* SOUSCRIPTION RESSOURCE souscriptionEnregistree =====================================");
-            System.out.println(souscriptionEnregistree);
             System.out.println("********************************* SOUSCRIPTION RESSOURCE souscriptionEnregistree =====================================");
 
             return new ResponseEntity<>(souscriptionEnregistree, HttpStatus.CREATED);
@@ -54,8 +41,6 @@ public class SouscriptionResource {
     public Souscription updateSouscription(@PathVariable Long souscriptionId, @RequestBody Souscription updatedSouscription)  {
         System.out.println("===================== updateSouscription Ressource ========================");
         System.out.println(souscriptionId);
-        System.out.println(updatedSouscription.getIsCuperieur());
-        System.out.println(updatedSouscription);
         System.out.println("===================== updateSouscription Ressource ========================");
         return souscriptionService.updateSouscription(updatedSouscription.getId(), updatedSouscription);
     }
@@ -63,14 +48,15 @@ public class SouscriptionResource {
     @GetMapping("/findAllByIsSuperieurFalse")
     public ResponseEntity<List<Souscription>> findAllByIsSuperieurFalse() {
         List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurFalse();
-        logger.info("+++++++++++++ list Agence en cours dans le Ressource ++++++++++++" + souscriptionList);
         return ResponseEntity.ok(souscriptionList);
     }
 
     @GetMapping("/findAllByIsSuperieurTrue")
     public ResponseEntity<List<Souscription>> findAllByIsSuperieurTrue() {
         List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurTrue();
-        logger.info("+++++++++++++ list findAllByIsSuperieurTrue en cours dans le Ressource ++++++++++++"+ souscriptionList);
                 return ResponseEntity.ok(souscriptionList);
     }
+
+
+
 }

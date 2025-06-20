@@ -27,6 +27,8 @@ public class Banque implements Serializable {
 
     @Column(name = "LocalDate")
     private LocalDate dateDuJour = LocalDate.now();
-
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "agence_id")
+    private Agence agence;
 
 }

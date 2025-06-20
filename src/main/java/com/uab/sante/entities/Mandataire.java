@@ -41,6 +41,9 @@ public class Mandataire implements Serializable {
     @Column(name = "Prime_Decouvert")
     private Long primeDecouvert;
 
+    @Column(name = "Prime_Surprime")
+    private Long primeSurprime;
+
     @Column(name = "tauxAmortissement")
     private Double tauxAmortissement;
 

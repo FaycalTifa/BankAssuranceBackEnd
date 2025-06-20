@@ -82,43 +82,7 @@ public class ReportService {
     }
 
 
-    public byte[] generateReport1(Long souscriptionId) throws JRException {
-        Souscription souscription = souscriptionRepository.findById(souscriptionId).orElseThrow(() -> new IllegalArgumentException("Invalid souscription ID"));
-        Personne personne = souscription.getPersonne();
 
-
-        // Log the person details to ensure they are being retrieved correctly
-        if (personne == null) {
-            logger.error("Personne is null for Souscription ID: " + souscriptionId);
-        } else {
-            logger.info("Personne details: " + personne.toString());
-        }
-
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(personne));
-
-        InputStream reportStream = getClass().getResourceAsStream("etat/BIA_Letter.jrxml");
-        if (reportStream == null) {
-            throw new JRException("Report template not found");
-        }
-
-        JasperReport jasperReport = JasperCompileManager.compileReport(reportStream);
-
-        Map<String, Object> parameters = new HashMap<>();
-        parameters.put("nom", "Détails de la Personne");
-        parameters.put("prenom", "Détails de la Personne");
-        parameters.put("nomDeJeuneFille", "Détails de la Personne");
-        parameters.put("dateDeNaissance", "Détails de la Personne");
-        parameters.put("lieuDeNaissance", "Détails de la Personne");
-        parameters.put("professionActuelle", "Détails de la Personne");
-        parameters.put("employeur", "Détails de la Personne");
-        parameters.put("numeroPiecePasseport", "Détails de la Personne");
-        parameters.put("telephone", "Détails de la Personne");
-        parameters.put("lieuEtablissement", "Détails de la Personne");
-        parameters.put("numeroPiecePasseport", "Détails de la Personne");
-
-        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, dataSource);
-        return JasperExportManager.exportReportToPdf(jasperPrint);
-    }
 
 
     public byte[] generateReport(Long souscriptionId) throws JRException {
@@ -129,7 +93,9 @@ public class ReportService {
         Mandataire mandataire = souscription.getMandataire();
         QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
         InformationEmploi informationEmploi = souscription.getInformationEmploi();
-        Banque banque = souscription.getBanque();
+        Gestionnaire gestionnaire = souscription.getGestionnaire();
+        Agence agence = souscription.getGestionnaire().getAgence();
+        Banque banque = souscription.getGestionnaire().getAgence().getBanque();
 
         // Log the person details to ensure they are being retrieved correctly
         if (personne == null) {
@@ -172,10 +138,25 @@ public class ReportService {
         }
  // Log the informationEmploi to ensure they are being retrieved correctly
         if (banque == null) {
-            logger.error("InformationEmploi is null for Souscription ID: " + souscriptionId);
-            throw new IllegalArgumentException("InformationEmploi is null for the given Souscription ID");
+            logger.error("banque is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("banque is null for the given Souscription ID");
         } else {
-            logger.info("InformationEmploi details: " + banque.toString());
+            logger.info("banque details: " + banque.toString());
+        }
+
+ // Log the informationEmploi to ensure they are being retrieved correctly
+        if (agence == null) {
+            logger.error("agence is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("agence is null for the given Souscription ID");
+        } else {
+            logger.info("agence details: " + agence.toString());
+        }
+// Log the informationEmploi to ensure they are being retrieved correctly
+        if (gestionnaire == null) {
+            logger.error("gestionnaire is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("gestionnaire is null for the given Souscription ID");
+        } else {
+            logger.info("gestionnaire details: " + gestionnaire.toString());
         }
 
         Map<String, Object> dataMap = new HashMap<>();
@@ -186,6 +167,9 @@ public class ReportService {
         dataMap.put("lieuDeNaissance", personne.getLieuDeNaissance());
         dataMap.put("professionActuelle", personne.getProfessionActuelle());
         dataMap.put("numeroPiecePasseport", personne.getNumeroPiecePasseport());
+        dataMap.put("gestionnaire",gestionnaire.getLibelle());
+        dataMap.put("agence", agence.getLibelle());
+        dataMap.put("banque",banque.getLibelle());
         dataMap.put("telephone", personne.getTelephone());
         dataMap.put("email", personne.getEmail());
         dataMap.put("telephoneSecours", personne.getTelephoneSecours());

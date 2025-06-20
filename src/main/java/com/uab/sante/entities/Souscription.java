@@ -26,6 +26,12 @@ public class Souscription implements Serializable {
     @Column(name = "signature", columnDefinition = "TEXT")
     private String signature;
 
+    @Column(name = "username")
+    private String username;
+
+    @Column(name = "email")
+    private String email;
+
     @Column(name = "LocalDate")
     private LocalDate dateDuJour = LocalDate.now();
 
@@ -53,8 +59,8 @@ public class Souscription implements Serializable {
     private InformationEmploi informationEmploi;
 
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "banque_id")
-    private Banque banque;
+    @JoinColumn(name = "gestionnaire_id")
+    private Gestionnaire gestionnaire;
 
 
 

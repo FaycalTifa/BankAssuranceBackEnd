@@ -9,6 +9,7 @@ import com.uab.sante.entities.*;
 import com.uab.sante.repository.SouscriptionRepository;
 import net.sf.jasperreports.engine.*;
 import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.data.JRMapCollectionDataSource;
 import net.sf.jasperreports.engine.util.JRLoader;
 import net.sf.jasperreports.view.JasperViewer;
 import org.slf4j.Logger;
@@ -35,56 +36,6 @@ public class ReportService {
     private SouscriptionRepository souscriptionRepository;
     private static final Logger logger = LoggerFactory.getLogger(ReportService.class);
 
-    public void generate() {
-        try {
-            // Charger le fichier JasperReport (.jasper)
-            File reportFile = new File("C:\\Users\\billa\\Documents\\PROJETS\\BANK ASSURANCE\\BankAssuranceBackEnd\\src\\main\\java\\com\\uab\\sante\\etat");
-            if (!reportFile.exists()) {
-                // Compiler le fichier JRXML en JasperReport (.jasper)
-                JasperCompileManager.compileReportToFile("src/main/java/com/uab/sante/etat/biaReport.jrxml", "src/main/java/com/uab/sante/etat/biaReport.jaspe");
-            }
-
-            JasperReport jasperReport = (JasperReport) JRLoader.loadObject(reportFile);
-
-            // Paramètres facultatifs pour le rapport
-            Map<String, Object> parameters = new HashMap<>();
-            // Ajouter des paramètres si nécessaire
-            // parameters.put("paramètre", valeur);
-
-            // Compiler le rapport (peut être omis si vous avez déjà le fichier .jasper)
-            // JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
-
-            // Afficher le rapport dans une visionneuse
-            JasperPrint jasperPrint = new JasperPrint(); // Remplacez-le par votre objet JasperPrint
-
-            JasperViewer viewer = new JasperViewer(jasperPrint, false);
-            viewer.setVisible(true);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-
-    public Map<String, Object> getSouscriptionDetails(Long souscriptionId) {
-        Souscription souscription = souscriptionRepository.findById(souscriptionId).orElse(null);
-        if (souscription == null) {
-            // Gérer le cas où la souscription n'est pas trouvée
-            return null;
-        }
-
-        Map<String, Object> details = new HashMap<>();
-        details.put("montantCreditAssurer", souscription.getDetailsCredit().getMontantCreditAssurer());
-        details.put("question2", souscription.getQuestionnaireMedical().getQuestion2());
-
-        return details;
-    }
-
-
-
-
-
     public byte[] generateReport(Long souscriptionId) throws JRException {
         Souscription souscription = souscriptionRepository.findById(souscriptionId)
                 .orElseThrow(() -> new IllegalArgumentException("Invalid souscription ID"));
@@ -96,6 +47,7 @@ public class ReportService {
         Gestionnaire gestionnaire = souscription.getGestionnaire();
         Agence agence = souscription.getGestionnaire().getAgence();
         Banque banque = souscription.getGestionnaire().getAgence().getBanque();
+        PeriodiciteRemboursement periodiciteRemboursement = souscription.getDetailsCredit().getPeriodiciteRemboursement();
 
         // Log the person details to ensure they are being retrieved correctly
         if (personne == null) {
@@ -158,6 +110,12 @@ public class ReportService {
         } else {
             logger.info("gestionnaire details: " + gestionnaire.toString());
         }
+ if (periodiciteRemboursement == null) {
+            logger.error("periodiciteRemboursement is null for Souscription ID: " + souscriptionId);
+            throw new IllegalArgumentException("periodiciteRemboursement is null for the given Souscription ID");
+        } else {
+            logger.info("periodiciteRemboursement details: " + periodiciteRemboursement.toString());
+        }
 
         Map<String, Object> dataMap = new HashMap<>();
         dataMap.put("nom", personne.getNom());
@@ -189,8 +147,9 @@ public class ReportService {
         dataMap.put("primeGarantiePerteEmploi", mandataire.getPrimeGarantiePerteEmploi());
         dataMap.put("primeDiffere", mandataire.getPrimeDiffere());
         dataMap.put("primeDecouvert", mandataire.getPrimeDecouvert());
+        dataMap.put("surPrime", mandataire.getPrimeSurprime());
         dataMap.put("numeroDeCompteUABVie", mandataire.getNumeroDeCompteUABVie());
-        dataMap.put("libelle", detailsCredit.getPeriodiciteRemboursement().getLibelle());
+        dataMap.put("libellePeride", periodiciteRemboursement.getLibelle());
         dataMap.put("dateEmbauche", informationEmploi.getDateEmbauche());
         dataMap.put("adresseEmployeur", informationEmploi.getAdresseEmployeur());
         dataMap.put("telEmployeur", informationEmploi.getTelEmployeur());
@@ -215,7 +174,9 @@ public class ReportService {
         }
 
 
-        JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(dataMap));
+       // JRBeanCollectionDataSource dataSource = new JRBeanCollectionDataSource(Collections.singletonList(dataMap));
+        JRMapCollectionDataSource dataSource = new JRMapCollectionDataSource(Collections.singletonList(dataMap));
+
 
         // Log to verify the path and availability of the template
         logger.info("Loading report template from classpath: etat/uabBia.jrxml");

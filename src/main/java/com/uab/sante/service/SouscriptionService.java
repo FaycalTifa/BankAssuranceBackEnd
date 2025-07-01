@@ -54,9 +54,11 @@ public class SouscriptionService {
     @Autowired
     private GestionnaireRepository gestionnaireRepository;
     @Autowired
+    private PeriodiciteRemboursementRepository periodiciteRemboursementRepository;
+    @Autowired
     private HttpServletRequest request;
     @Autowired
-    private TokenService tokenService;
+    private EmailService emailService;
     @Autowired
     private static final Logger logger = LoggerFactory.getLogger(SouscriptionService.class);
 
@@ -104,7 +106,7 @@ public class SouscriptionService {
 
             String username = jwt.getClaimAsString("preferred_username"); // parfois un ID chiffré
             String email = jwt.getClaimAsString("email");
-            String nom = jwt.getClaimAsString("family_name"); // nom de famille
+            String Banque = jwt.getClaimAsString("banque"); // nom de famille
             String prenom = jwt.getClaimAsString("given_name"); // prénom
             String nomComplet = jwt.getClaimAsString("name"); // parfois "Prénom Nom"
 
@@ -114,10 +116,13 @@ public class SouscriptionService {
             logger.info("###########################3 token.getPreferredUsername() ############################" );
             logger.info("Nom d'utilisateur Keycloak : {}", username);
             logger.info("email Keycloak : {}", email);
+            logger.info("Banque Keycloak : {}", Banque);
             logger.info("###########################3 token.getPreferredUsername() ############################" );
             logger.debug("Contenu complet du JWT : {}", jwt.getClaims());
 
         System.out.println("###########################3 SOUSCRIPTION SERVICE ############################");
+            // Gérer la périodicité
+
         Personne personne = souscription.getPersonne();
         DetailsCredit detailsCredit = souscription.getDetailsCredit();
         QuestionnaireMedical questionnaireMedical = souscription.getQuestionnaireMedical();
@@ -128,6 +133,20 @@ public class SouscriptionService {
 // Initialisez les identifiants avec des valeurs temporaires
         personne.setId(999L); // Remplacez 1L par une valeur appropriée
         detailsCredit.setId(999L); // Remplacez 2L par une valeur appropriée
+
+            // Facultatif : gérer la periodicité de remboursement
+            if (detailsCredit != null && detailsCredit.getPeriodiciteRemboursement() != null &&
+                    detailsCredit.getPeriodiciteRemboursement().getId() != null) {
+
+                Long idPeriodicite = detailsCredit.getPeriodiciteRemboursement().getId();
+
+                PeriodiciteRemboursement periodicite = periodiciteRemboursementRepository.findById(idPeriodicite)
+                        .orElseThrow(() -> new IllegalArgumentException("La périodicité spécifiée n'existe pas"));
+
+                detailsCredit.setPeriodiciteRemboursement(periodicite); // ✅ Entité persistée
+            } else {
+                detailsCredit.setPeriodiciteRemboursement(null); // champ facultatif
+            }
 
         // Initialisez de même les autres identifiants
 
@@ -181,12 +200,7 @@ public class SouscriptionService {
 
         // Update QuestionnaireMedical
         updateEntityFields(souscription.getQuestionnaireMedical(), nouvelleSouscription.getQuestionnaireMedical(), questionnaireMedicalRepository);
-        if (souscription.getSignature() != null && souscription.getSignature().startsWith("data:image")) {
-            String base64 = souscription.getSignature().split(",")[1];
-            souscription.setSignature(base64); // Stocke uniquement la partie utile
-            System.out.println(" ************* update Signature reçue (base64), longueur = " + base64.length());
 
-        }
         // Update Mandataire
         updateEntityFields(souscription.getMandataire(), nouvelleSouscription.getMandataire(), mandataireRepository);
 
@@ -196,6 +210,22 @@ public class SouscriptionService {
 
         // Update getIsCuperieur
         souscription.setIsCuperieur(nouvelleSouscription.getIsCuperieur());
+        // Mise à jour de la signature si une nouvelle est fournie
+        if (nouvelleSouscription.getSignature() != null && !nouvelleSouscription.getSignature().isEmpty()) {
+            String signature = nouvelleSouscription.getSignature();
+            String base64;
+
+            if (signature.contains(",")) {
+                // cas normal : "data:image/png;base64,....."
+                base64 = signature.split(",")[1];
+            } else {
+                // cas où la signature est déjà en base64 sans préfixe
+                base64 = signature;
+            }
+
+            souscription.setSignature(base64);
+            System.out.println("********** Signature mise à jour (base64), longueur = " + base64.length());
+        }
 
         return souscriptionRepository.save(souscription);
     }
@@ -241,6 +271,9 @@ public class SouscriptionService {
         return souscriptionRepository.countSouscriptionsParUneBanque(idBanque);
     }
 
-
+    @Transactional
+    public List<Souscription> getByDate(LocalDate start, LocalDate end) {
+        return souscriptionRepository.findByDateDuJourBetween(start, end);
+    }
 
 }

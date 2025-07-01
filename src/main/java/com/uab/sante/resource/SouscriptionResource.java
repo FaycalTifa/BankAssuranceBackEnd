@@ -1,14 +1,17 @@
 package com.uab.sante.resource;
 
 import com.uab.sante.entities.Souscription;
+import com.uab.sante.repository.SouscriptionRepository;
 import com.uab.sante.service.SouscriptionService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -17,6 +20,8 @@ public class SouscriptionResource {
 
     @Autowired
     private  SouscriptionService souscriptionService;
+    @Autowired
+    private SouscriptionRepository souscriptionRepository;
     @Autowired
     private static final Logger logger = LoggerFactory.getLogger(SouscriptionResource.class);
 
@@ -55,6 +60,14 @@ public class SouscriptionResource {
     public ResponseEntity<List<Souscription>> findAllByIsSuperieurTrue() {
         List<Souscription> souscriptionList = souscriptionService.findAllByIsSuperieurTrue();
                 return ResponseEntity.ok(souscriptionList);
+    }
+
+    @GetMapping("/by-date")
+    public List<Souscription> getByDate(
+            @RequestParam("start") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate start,
+            @RequestParam("end") @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate end) {
+
+        return souscriptionService.getByDate(start, end);
     }
 
 

@@ -62,9 +62,4 @@ public class Souscription implements Serializable {
     @JoinColumn(name = "gestionnaire_id")
     private Gestionnaire gestionnaire;
 
-
-
-
-
-
 }

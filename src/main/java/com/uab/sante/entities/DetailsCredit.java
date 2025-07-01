@@ -72,7 +72,7 @@ public class DetailsCredit implements Serializable {
     @Column(name = "isDecouvert")
     private Boolean isDecouvert ;
 
-    @ManyToOne(cascade = {CascadeType.MERGE}, optional = true)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "periodicite_remboursement_id") // Assurez-vous de remplacer "periodicite_remboursement_id" par le nom réel de la colonne dans votre table DetailsCredit qui fait référence à la table PeriodiciteRemboursement.
     private PeriodiciteRemboursement periodiciteRemboursement;
 

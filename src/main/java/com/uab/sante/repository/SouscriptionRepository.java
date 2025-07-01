@@ -44,5 +44,7 @@ public interface SouscriptionRepository extends JpaRepository<Souscription, Long
             "FROM Souscription s WHERE s.gestionnaire.agence.banque.id = :idBanque GROUP BY s.gestionnaire.agence.libelle")
     List<StatistiqueDTO> countSouscriptionsParUneBanque(@Param("idBanque") Long idBanque);
 
+    List<Souscription> findByDateDuJourBetween(LocalDate start, LocalDate end);
+
 
 }
